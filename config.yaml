@@ -68,6 +68,8 @@ contact: 'h.k.ervasti@tudelft.nl'
 # Order of episodes in your lesson
 episodes:
 - what_is_qmi.Rmd
+- hello_world.Rmd
+- one_instrument_control.Rmd
 
 # Information for Learners
 learners:
