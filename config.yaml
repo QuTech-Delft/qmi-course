@@ -70,6 +70,8 @@ episodes:
 - what_is_qmi.Rmd
 - hello_world.Rmd
 - one_instrument_control.Rmd
+- qmi_configuration.Rmd
+- accessing_a_remote_instrument.Rmd
 
 # Information for Learners
 learners:
