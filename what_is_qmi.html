@@ -227,6 +227,24 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="hello_world.html">2. hello_world</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="one_instrument_control.html">3. one_instrument_control</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -270,7 +288,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="hello_world.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -278,14 +296,14 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Home
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="hello_world.html" rel="next">
+          Next: hello_world...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>what_is_qmi</h1>
-        <p>Last updated on 2025-08-20 |
+        <p>Last updated on 2025-08-21 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/what_is_qmi.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -344,7 +362,7 @@ drivers are importable classes in QMI with (a selection of) functions
 with which the device can be controlled and monitored. QMI has currently
 device drivers for 45 manufacturers and 80 devices. In the picture below
 you can see most of the supported instruments in QMI.</p>
-<figure><img src="https://github.com/QuTech-Delft/qmi-course/blob/main/episodes/figures/montage.png" alt="Montage of QMI drivers manufacturer and devices" class="figure mx-auto d-block"><div class="figcaption">Montage of QMI drivers manufacturer and
+<figure><img src="figures/montage.png" alt="Montage of QMI drivers manufacturer and devices" class="figure mx-auto d-block"><div class="figcaption">Montage of QMI drivers manufacturer and
 devices</div>
 </figure></section><section><h2 class="section-heading" id="qmi-contexts">QMI contexts<a class="anchor" aria-label="anchor" href="#qmi-contexts"></a></h2>
 <hr class="half-width"><p>When using QMI in a Python program, a <em>context</em> is started.
@@ -358,7 +376,7 @@ groups in separate contexts and there is therefore no need to make one
 big program that contains all the instruments, tasks and whatever logic
 or timing is necessary. The programs can that way be made modular, with
 easy addition or removal of contexts.</p>
-<figure><img src="https://github.com/QuTech-Delft/qmi-course/blob/main/episodes/figures/qmi_contexts.png" alt="QMI contexts example" class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
+<figure><img src="figures/qmi_contexts.png" alt="Figure 1: An example of three QMI contexts where two instrument device drivers are added to QMI context 1. Then we have context 2, that runs a task, which is configured to make connection to context one, and to control the instruments in it. This second contexts now sends also out settings and status signals which can e.g. be forwarder to a database. A third context monitors the task status in context two and instrument status in context one. This context is hooked in the status signal and at specific signal values or circumstances could either tell context two to change settings or stop task, or send specific commands to the instruments in context one." class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
 two instrument device drivers are added to QMI context 1. Then we have
 context 2, that runs a task, which is configured to make connection to
 context one, and to control the instruments in it. This second contexts
@@ -416,7 +434,7 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="hello_world.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -424,8 +442,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Home
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="hello_world.html" rel="next">
+          Next: hello_world...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -470,9 +488,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://QuTech-Delft.github.io/qmi-course/what_is_qmi.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/what_is_qmi.html",
-  "dateCreated": "2025-08-20",
-  "dateModified": "2025-08-20",
-  "datePublished": "2025-08-20"
+  "dateCreated": "2025-08-21",
+  "dateModified": "2025-08-21",
+  "datePublished": "2025-08-21"
 }
 
   </script><script>

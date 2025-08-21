@@ -252,6 +252,30 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="hello_world.html">2. hello_world</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="one_instrument_control.html">3. one_instrument_control</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -318,6 +342,30 @@ context</li>
 QMI contexts</li>
 <li>QMI signals: QMI context objects can also broadcast and receive
 signals, which can include e.g. data</li>
+</ul></section><section id="hello_world"><h2 class="section-heading"><a href="hello_world.html">hello_world</a></h2>
+<hr class="half-width">
+<ul>
+<li>A QMI context is created using
+<code>qmi.start("&lt;context_name&gt;")</code> call</li>
+<li>Always remember to stop the context with
+<code>qmi.stop()</code>
+</li>
+</ul></section><section id="one_instrument_control"><h2 class="section-heading"><a href="one_instrument_control.html">one_instrument_control</a></h2>
+<hr class="half-width">
+<ul>
+<li>Instruments can be added into contexts with
+<code>&lt;instrument_object&gt; = qmi.make_instrument("&lt;name&gt;", &lt;ClassName&gt;, &lt;possible_extra_parameters&gt;)</code>
+</li>
+<li>Instrument class description can be seen with
+<code>help(&lt;instrument_object&gt;)</code>
+</li>
+<li>Detailed information about the object and available variables and
+RPC methods can be obtained with
+<code>vars(&lt;instrument_object&gt;)</code> and
+<code>dir(&lt;instrument_object&gt;)</code>
+</li>
+<li>The returned instrument object is an RPC <em>proxy</em> object of
+the actual class object</li>
 </ul></section>
 </div>
     </main>
@@ -365,9 +413,9 @@ signals, which can include e.g. data</li>
   "creativeWorkStatus": "active",
   "url": "https://QuTech-Delft.github.io/qmi-course/key-points.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/key-points.html",
-  "dateCreated": "2025-08-20",
-  "dateModified": "2025-08-20",
-  "datePublished": "2025-08-20"
+  "dateCreated": "2025-08-21",
+  "dateModified": "2025-08-21",
+  "datePublished": "2025-08-21"
 }
 
   </script><script>

@@ -252,6 +252,30 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="hello_world.html">2. hello_world</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="one_instrument_control.html">3. one_instrument_control</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -308,7 +332,7 @@
         
 <section id="aio-what_is_qmi"><p>Content from <a href="what_is_qmi.html">what_is_qmi</a></p>
 <hr>
-<p>Last updated on 2025-08-20 |
+<p>Last updated on 2025-08-21 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/what_is_qmi.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -369,7 +393,7 @@ drivers are importable classes in QMI with (a selection of) functions
 with which the device can be controlled and monitored. QMI has currently
 device drivers for 45 manufacturers and 80 devices. In the picture below
 you can see most of the supported instruments in QMI.</p>
-<figure><img src="https://github.com/QuTech-Delft/qmi-course/blob/main/episodes/figures/montage.png" alt="Montage of QMI drivers manufacturer and devices" class="figure mx-auto d-block"><div class="figcaption">Montage of QMI drivers manufacturer and
+<figure><img src="figures/montage.png" alt="Montage of QMI drivers manufacturer and devices" class="figure mx-auto d-block"><div class="figcaption">Montage of QMI drivers manufacturer and
 devices</div>
 </figure></section><section><h2 class="section-heading" id="qmi-contexts">QMI contexts<a class="anchor" aria-label="anchor" href="#qmi-contexts"></a>
 </h2>
@@ -385,7 +409,7 @@ groups in separate contexts and there is therefore no need to make one
 big program that contains all the instruments, tasks and whatever logic
 or timing is necessary. The programs can that way be made modular, with
 easy addition or removal of contexts.</p>
-<figure><img src="https://github.com/QuTech-Delft/qmi-course/blob/main/episodes/figures/qmi_contexts.png" alt="QMI contexts example" class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
+<figure><img src="figures/qmi_contexts.png" alt="Figure 1: An example of three QMI contexts where two instrument device drivers are added to QMI context 1. Then we have context 2, that runs a task, which is configured to make connection to context one, and to control the instruments in it. This second contexts now sends also out settings and status signals which can e.g. be forwarder to a database. A third context monitors the task status in context two and instrument status in context one. This context is hooked in the status signal and at specific signal values or circumstances could either tell context two to change settings or stop task, or send specific commands to the instruments in context one." class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
 two instrument device drivers are added to QMI context 1. Then we have
 context 2, that runs a task, which is configured to make connection to
 context one, and to control the instruments in it. This second contexts
@@ -446,6 +470,305 @@ signals, which can include e.g. data</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</section></section><section id="aio-hello_world"><p>Content from <a href="hello_world.html">hello_world</a></p>
+<hr>
+<p>Last updated on 2025-08-21 |
+
+        <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/hello_world.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How are the QMI contexts created?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Create a simple QMI context</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section><h2 class="section-heading" id="hello-world-context-creation">“Hello world” context creation<a class="anchor" aria-label="anchor" href="#hello-world-context-creation"></a>
+</h2>
+<hr class="half-width">
+<p>Start up python</p>
+<pre class="shell"><code><span><span class="va">python</span></span></code></pre>
+<p>We are now in an interactive Python shell. Let’s start with importing
+QMI.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> qmi</span></code></pre>
+</div>
+<p>Presuming you had just installed QMI with Pip, this should just work
+without any issues. Let’s continue to creating a simple context called
+“hello_world”.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>qmi.start(<span class="st">"hello_world"</span>, config_file<span class="op">=</span><span class="va">None</span>)</span></code></pre>
+</div>
+<p>Now, your first QMI context has been started. You can verify this
+with</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>qmi.context()</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fu">QMI_context</span><span class="op">(</span>name<span class="op">=</span><span class="st">'hello_world'</span><span class="op">)</span></span></code></pre>
+</div>
+
+<p>A couple of remarks are in place already here. The context name is
+with underscore (_) as spaces in the context names cause issues. So,
+avoid those and also special letters like ‘!’, ‘@’, ‘#’, ‘$’ etc. We
+also gave a second input parameter <code>config_file=None</code> for the
+call. This was actually optional as the default value for the parameter
+is <code>None</code>, but we wanted to illustrate with this that we
+start a context without specifying a QMI configuration file. In that
+case, QMI will create a simple configuration for the context. Now just
+let’s stop the “hello_world” context.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>qmi.stop()</span></code></pre>
+</div>
+<p>We can confirm that the context has been stopped</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>qmi.info()</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="st">'*** No active QMI context ***'</span></span></code></pre>
+</div>
+<p>And trying to a command like <code>qmi.context()</code> now will give
+an exception. Note that it is important always to stop your contexts.
+Python does not always manage to clean up the QMI contexts properly,
+especially when the context has plenty of things going on, if the
+context is not manually stopped before. This can leave bogus QMI
+contexts running on your system with e.g. some kind of task or
+instrument control active.</p>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>A QMI context is created using
+<code>qmi.start("&lt;context_name&gt;")</code> call</li>
+<li>Always remember to stop the context with
+<code>qmi.stop()</code>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</section></section><section id="aio-one_instrument_control"><p>Content from <a href="one_instrument_control.html">one_instrument_control</a></p>
+<hr>
+<p>Last updated on 2025-08-21 |
+
+        <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/one_instrument_control.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How do I control an instrument?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Add an instrument into a QMI context and control it with RPC
+commands</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section><h2 class="section-heading" id="using-qmi-to-control-one-instrument">Using QMI to control one instrument<a class="anchor" aria-label="anchor" href="#using-qmi-to-control-one-instrument"></a>
+</h2>
+<hr class="half-width">
+<p>In this example we show how to create an instrument object in a
+context. For this, we have a dummy instrument in the QMI instruments to
+illustrate. See also the QMI readthedocs documentation about the dummy
+instrument class call interface. Let’s import the device driver.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">from</span> qmi.instruments.dummy.noisy_sine_generator <span class="im">import</span> NoisySineGenerator</span></code></pre>
+</div>
+<p>So we imported the QMI device driver class called
+<code>NoisySineGenerator</code> from QMI instrument “manufacturer”
+<code>dummy</code> and device <code>noisy_sine_generator</code> module.
+To use this, we start a new QMI context and “make” an instrument object
+from the device driver.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>qmi.start(<span class="st">"nsg_demo"</span>, <span class="va">None</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>nsg <span class="op">=</span> qmi.make_instrument(<span class="st">"nsg"</span>, NoisySineGenerator)</span></code></pre>
+</div>
+
+<p>Now we have an instrument object <code>nsg</code> present in Python.
+The instrument is also added into the context. This can be checked
+with:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>qmi.show_instruments()</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>address       type
+------------  ------------------
+nsg_demo.nsg  NoisySineGenerator
+------------  ------------------</code></pre>
+</div>
+<p>The address “nsg_demo.nsg” means that now there is an instrument
+object “nsg” present in context “nsg_demo”. The type confirms the
+instrument object is of expected class type. Alternative way to confirm
+this is simply to type the object in Python.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>nsg</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>&lt;rpc proxy for nsg_demo.nsg (qmi.instruments.dummy.noisy_sine_generator.NoisySineGenerator)&gt;</code></pre>
+</div>
+<p>As can be seen, the created object is actually an RPC proxy of the
+actual instrument object. This has a couple of consequences: The first
+is that the proxy object can be now shared through the context with
+other contexts, allowing remote control of the instrument. The second is
+that the proxy object does not have the full class interface of the
+device driver, but only the variables that are present in QMI proxy
+class and functions that have been selected to be RPC callable. We can
+list the variables of the object with</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="bu">vars</span>(nsg)</span></code></pre>
+</div>
+<p>It gives out the whole variable dictionary in a one long string,
+which is a bit difficult to read. We can try to make it a bit more
+readable by doing:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>[<span class="bu">print</span>(k, v, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>) <span class="cf">for</span> k, v <span class="kw">in</span> <span class="bu">vars</span>(nsg).items()]</span></code></pre>
+</div>
+<p>Here are useful information, like the <code>__doc__</code> which is
+the documentation string of the class object. Then all entries listed as
+“bound method” are the callable RPC functions of the object. If you
+compare this with the readthedocs documentation of the class API, you
+notice that a few methods like <code>get_category</code> and
+<code>release_rpc_object</code> are not present. These methods are not
+useful for the user, so they are also not available in the proxy. The
+double underscores in <code>__enter__</code> and <code>__exit__</code>
+also indicate that user should not call these directly, even if they are
+available. Those are used for the instrument context control. A bit
+shorter listing of the attributes of the object, you can use</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="bu">dir</span>(nsg)</span></code></pre>
+</div>
+<p>Anyhow, in the printed out list, a lot of useful methods are present
+and supported through the proxy. Let’s try one:</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>nsg.get_sample()</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code><span><span class="fl">96.18801232566346</span></span></code></pre>
+</div>
+<p>So we get returned one sample of the sine wave at a random moment.
+Let’s do for demonstration purpose a little for loop print out the sine
+wave of our generator “instrument”:</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> nsg.get_sample()) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>    time.sleep(<span class="fl">0.01</span>)</span></code></pre>
+</div>
+<p>Nice huh? Let’s then close this context with <code>qmi.stop()</code>
+and exit Python with <code>exit()</code>and prepare for next
+example.</p>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>Instruments can be added into contexts with
+<code>&lt;instrument_object&gt; = qmi.make_instrument("&lt;name&gt;", &lt;ClassName&gt;, &lt;possible_extra_parameters&gt;)</code>
+</li>
+<li>Instrument class description can be seen with
+<code>help(&lt;instrument_object&gt;)</code>
+</li>
+<li>Detailed information about the object and available variables and
+RPC methods can be obtained with
+<code>vars(&lt;instrument_object&gt;)</code> and
+<code>dir(&lt;instrument_object&gt;)</code>
+</li>
+<li>The returned instrument object is an RPC <em>proxy</em> object of
+the actual class object</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
 </section></section>
 </div>
     </main>
@@ -493,9 +816,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://QuTech-Delft.github.io/qmi-course/aio.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/aio.html",
-  "dateCreated": "2025-08-20",
-  "dateModified": "2025-08-20",
-  "datePublished": "2025-08-20"
+  "dateCreated": "2025-08-21",
+  "dateModified": "2025-08-21",
+  "datePublished": "2025-08-21"
 }
 
   </script><script>
