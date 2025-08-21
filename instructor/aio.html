@@ -277,6 +277,30 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="qmi_configuration.html">4. qmi_configuration</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="accessing_a_remote_instrument.html">5. accessing_a_remote_instrument</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -669,7 +693,7 @@ from the device driver.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>View that class “docstring” with</p>
 <div class="codewrapper sourceCode" id="cb3">
@@ -795,6 +819,245 @@ RPC methods can be obtained with
 </li>
 <li>The returned instrument object is an RPC <em>proxy</em> object of
 the actual class object</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</section></section><section id="aio-qmi_configuration"><p>Content from <a href="qmi_configuration.html">qmi_configuration</a></p>
+<hr>
+<p>Last updated on 2025-08-21 |
+
+        <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/qmi_configuration.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What are QMI configuration and log files?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Know how to create a basic configuration file.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section><h2 class="section-heading" id="qmi-configuration-and-log-file">QMI Configuration and log file<a class="anchor" aria-label="anchor" href="#qmi-configuration-and-log-file"></a>
+</h2>
+<hr class="half-width">
+<p>Many aspects of QMI are configurable via a <em>configuration
+file</em>. The syntax of this file is very similar to <a href="https://www.json.org/" class="external-link">JSON</a>, but unlike JSON, the
+configuration file may contain comments starting with a # character. By
+default, QMI attempts to read the configuration from a file named
+<code>qmi.conf</code> in the home directory (i.e. ‘/home/<user_profile>’
+in Linux or ‘C:&lt;user_name&gt;’ folder on Windows). If you want to use
+a different file name or location, you can specify the configuration
+file path either as the second argument of <code>qmi.start()</code> or
+in the environment variable <code>QMI_CONFIG</code>. Let’s create a
+configuration file <code>qmi.conf</code> at home directory with the
+following contents:</user_profile></p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">JSON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode json" tabindex="0"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="er">#</span> <span class="er">Log</span> <span class="er">level</span> <span class="er">for</span> <span class="er">messages</span> <span class="er">to</span> <span class="er">the</span> <span class="er">console.</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">"logging"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>        <span class="dt">"console_loglevel"</span><span class="fu">:</span> <span class="st">"INFO"</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+</div>
+<p>This configuration file changes the log level for messages that
+appear on the screen. By default, QMI prints only warnings and error
+messages. Our new configuration also enables printing of informational
+messages. For further details about logging options, see documentation
+on <a href="https://qmi.readthedocs.io/en/latest/build/qmi.core.logging_init.html#module-qmi.core.logging_init" class="external-link">qmi.core.logging_init</a>
+module. Test the new configuration file in a new Python session:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> qmi</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>qmi.start(<span class="st">"hello_world"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>qmi.stop()</span></code></pre>
+</div>
+<p>Notice that we do not pass a ‘None’ as the second argument to
+<code>qmi.start()</code>. As a result, QMI will try to read the
+configuration file from its default location. If the configuration file
+is working correctly, QMI should print a bunch of log messages after the
+call to <code>qmi.start()</code>. If your configuration file is not in
+the default location, you may have to specify its location as the second
+argument to <code>qmi.start()</code>. At your home directory should also
+now be a file called <code>qmi.log</code>. The file works as a log for
+QMI programs. You will find in this file a log of actions you took until
+now while testing your first examples. The logging can be disabled by
+giving input parameter <code>init_logging=False</code> for
+<code>qmi.start()</code>. We will add more settings to the configuration
+file as we progress through this tutorial.</p>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>
+<code>qmi.conf</code> has a JSON-like structure</li>
+<li>Log levels are set within “logging” keyword section</li>
+<li>Default name and location of the log file are <code>qmi.log</code>
+and the user’s home directory</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</section></section><section id="aio-accessing_a_remote_instrument"><p>Content from <a href="accessing_a_remote_instrument.html">accessing_a_remote_instrument</a></p>
+<hr>
+<p>Last updated on 2025-08-21 |
+
+        <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/accessing_a_remote_instrument.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What are QMI configuration and log files?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Know how to create a basic configuration file.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section><h2 class="section-heading" id="accessing-a-remote-instrument">Accessing a remote instrument<a class="anchor" aria-label="anchor" href="#accessing-a-remote-instrument"></a>
+</h2>
+<hr class="half-width">
+<p>QMI makes it easy to access an instrument instance that exists in
+another Python program. The programs may even run on different
+computers. The Python program that contains the instrument instance must
+be accessible via the network. This can be achieved by extending the QMI
+configuration file. The new file will look as follows:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">JSON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode json" tabindex="0"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="er">#</span> <span class="er">Log</span> <span class="er">level</span> <span class="er">for</span> <span class="er">messages</span> <span class="er">to</span> <span class="er">the</span> <span class="er">console.</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">"logging"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>        <span class="dt">"console_loglevel"</span><span class="fu">:</span> <span class="st">"INFO"</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="dt">"contexts"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>        <span class="er">#</span> <span class="er">Testing</span> <span class="er">remote</span> <span class="er">instrument</span> <span class="er">access.</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>        <span class="dt">"instr_server"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>            <span class="dt">"host"</span><span class="fu">:</span> <span class="st">"127.0.0.1"</span><span class="fu">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>            <span class="dt">"tcp_server_port"</span><span class="fu">:</span> <span class="dv">40001</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+</div>
+<p>Note that JSON is very picky about the use of commas. There must be a
+comma between multiple elements in the same group, but there may not be
+a comma after the last element of a group.</p>
+<p>Start the instrument server with the following lines:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">from</span> qmi.instruments.dummy.noisy_sine_generator <span class="im">import</span> NoisySineGenerator</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>qmi.start(<span class="st">"instr_server"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>nsg <span class="op">=</span> qmi.make_instrument(<span class="st">"nsg"</span>, NoisySineGenerator)</span></code></pre>
+</div>
+<p>Because the name of the context instr_server matches the name
+specified in the configuration file, QMI opens a TCP server port for
+this context. Check that the reading of configuration file succeeded by
+calling <code>qmi.context().get_context_config()</code>. In the response
+string, the <code>host</code> and <code>tcp_server_port</code> values
+should be the same as in the configuration file. If this is not the
+case, stop the context, and start it again providing the
+<code>qmi.conf</code> file path with the <code>config_file</code>
+parameter. Then try again to confirm the host and port. Other Python
+programs can now connect to this port to access the sine generator.</p>
+<p>To try this, leave the instrument server session running and start
+another Python session in a separate terminal window:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> qmi</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>qmi.start(<span class="st">"random_client"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>qmi.context().connect_to_peer(<span class="st">"instr_server"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>nsg <span class="op">=</span> qmi.get_instrument(<span class="st">"instr_server.nsg"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>nsg.get_sample()</span></code></pre>
+</div>
+<blockquote>
+<p>NOTE: With Windows, the <code>connect_to_peer</code> also requires
+explicit input of the context address. You can check the address by
+calling <code>qmi.show_network_contexts()</code>. Then give the whole
+address as second parameter in the call with
+<code>peer_address=&lt;the_address&gt;</code>. If the connecting now
+went without an exception, everything should be now OK. You can confirm
+this by calling again <code>qmi.show_network_contexts()</code>and see
+that the ‘connected’ column has now changed to ‘yes’. Then proceed to
+get the instrument and a sample.</p>
+</blockquote>
+<blockquote>
+<p>NOTE 2: <code>peer_address=”127.0.0.1:40001”</code> also works as the
+‘localhost’ address changes into the IPv4 address in the background.
+This exercise demonstrated how the second Python program is able to
+access the <code>NoisySineGenerator</code> instance proxy that exists
+within the first Python program (and QMI context within it). To do this,
+the QMI context of the second program connects to the “instr_server”
+context via TCP. Behind the scenes, the two contexts exchange messages
+through this connection to arrange for the method
+<code>get_sample()</code> to be called in the real instrument instance
+through the proxy, and the answer to be sent back to the calling proxy
+in the second program.</p>
+</blockquote>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>
+<code>qmi.conf</code> has a JSON-like structure</li>
+<li>Log levels are set within “logging” keyword section</li>
+<li>Default name and location of the log file are <code>qmi.log</code>
+and the user’s home directory</li>
 </ul>
 </div>
 </div>
