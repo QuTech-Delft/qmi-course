@@ -49,7 +49,7 @@ sum = summer_fun(a, b)
 
 The user might get surprised that after giving number a as 1 and number b as 2, the sum is 12! How did that happen? Well, the reason is that `input` returns the given answer always as a string. And summing two strings, like “a” and “b” is simply “ab”. So, the code works but it does the wrong thing. But, as we have typed the `summer_fun`, inspecting the code with an IDE that also checks typing would give warnings here. And running a MyPy check on this could would give an error telling that the input values “a” and “b” are of type *str* (strings), while it expected type *int* or *float* for them. So the error could have passed unnoticed if no type checking was done. The solution would be to cast the `input` values either as an *int* (will crash if a decimal value is inputted!) or *float* before or at the function call to `summer_fun`.
 
-:::: Challenge
+::::::: Challenge
 Let’s do some exercises with typing.
 
 Install MyPy:
@@ -103,11 +103,10 @@ If you made the program with a nice IDE like PyCharm, probably some squiggly lin
 The MyPy output tells us the typing of variable `debts` is wrong: it is annotated as a *str* but the value is a *float*. The call to `summer_fun` has also problems. This is because `input` call returns always a string. The 4th line of Mypy error now shows that we cannot add together `debts` and a supposed *int* return value from `summer_fun`. The last line means that we cannot take a 'minus' of a string.
 :::
 
-> Exercise 2:
-> Now let's assume you try to correct the issues by changing the annotation of `debts` to *float*, and casting the inputs to `summer_fun` as integers using `alice_has = int(alice_has)` and `bob_has = int(bob_has)`. You see the same amount of errors! Why?
+> Exercise 2: Now let's assume you try to correct the issues by changing the annotation of `debts` to *float*, and casting the inputs to `summer_fun` as integers using `alice_has = int(alice_has)` and `bob_has = int(bob_has)`. You see the same amount of errors! Why?
 
 ::: instructor
-```output
+``` output
 mypy_exercise.py:8: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
 mypy_exercise.py:9: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
 mypy_exercise.py:10: error: Argument 1 to "summer_fun" has incompatible type "str"; expected "int"  [arg-type]
@@ -115,28 +114,30 @@ mypy_exercise.py:10: error: Argument 2 to "summer_fun" has incompatible type "st
 mypy_exercise.py:11: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
 Found 5 errors in 1 file (checked 1 source file)
 ```
+
 The variables `alice_has` and `bob_has` are still typed as the original type, *str* even after casting. Instead of changing the variable assignment, MyPy warns that you are doing something potentially harmful and errors out. Therefore the `summer_fun` input argument errors did not go away, either. The last error is also new: Now Mypy complains that, `left_sum` being annotated as an *int*, the sum of `debts` and `alice_and_bob_have` will be *float*.
 :::
 
-So we realize that the casting went wrong, and that there is an issue with typing assignment due to some values typed as *float* and others as *int*. 
+So we realize that the casting went wrong, and that there is an issue with typing assignment due to some values typed as *float* and others as *int*.
 
-> Exercise 3:
-> OK, let's fix this further by doing the casting directly in the function call, without reassigning the `alice_has` and `bob_has`. We also cast the `debts` in the summation as an *int*. What does MyPy say now? Will the code work?
+> Exercise 3: OK, let's fix this further by doing the casting directly in the function call, without reassigning the `alice_has` and `bob_has`. We also cast the `debts` in the summation as an *int*. What does MyPy say now? Will the code work?
 
 ::: instructor
 Mypy says now `Success: no issues found in 1 source file`. Also, the code will run if the user inputs whole numbers. Notably, the print-outs also work, giving the values with two decimal accuracy like indicated by the `:0.2f` formatter in the strings. But all is not well here. What if you want to use a decimal value for 'money', like 30.1? You get an exception out:
-```output
+
+``` output
 Traceback (most recent call last):
   File "mypy_exercise.py", line 8, in <module>
     alice_and_bob_have = summer_fun(int(alice_has), int(bob_has))
                                     ~~~^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: '30.1'
 ```
+:::
 
 ::: solution
 So, the code works, but only with whole numbers and not with decimals. To fix this we can use the fact that Python can cast directly to float both integer and decimal input strings. Now, cast the `alice_has` and `bob_has` into *float*s. We should also allow the `summer_fun` input parameters be *float*s and return a *float* as well. Then as last step the `left_sum` should also be typed as a *float* and no casting of `debts` should be done.
 :::
-::::
+:::::::
 
 ::: keypoints
 -   MyPy is a tool to check *typing* in code
