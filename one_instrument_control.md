@@ -1,6 +1,8 @@
 ---
-title: "one_instrument_control"
+title: "Controlling an instrument"
 output: html_document
+teaching: 5
+exercises: 10
 ---
 
 ::: questions
