@@ -58,7 +58,13 @@
     <loc>https://QuTech-Delft.github.io/qmi-course/instructor/key-points.html</loc>
   </url>
   <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/instructor/mypy.html</loc>
+  </url>
+  <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/instructor/one_instrument_control.html</loc>
+  </url>
+  <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/instructor/open-source_vs_internal.html</loc>
   </url>
   <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/instructor/profiles.html</loc>
@@ -68,6 +74,12 @@
   </url>
   <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/instructor/releasing_code.html</loc>
+  </url>
+  <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/instructor/tasks_and_service.html</loc>
   </url>
   <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/instructor/what_is_qmi.html</loc>
@@ -82,7 +94,13 @@
     <loc>https://QuTech-Delft.github.io/qmi-course/key-points.html</loc>
   </url>
   <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/mypy.html</loc>
+  </url>
+  <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/one_instrument_control.html</loc>
+  </url>
+  <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/open-source_vs_internal.html</loc>
   </url>
   <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/profiles.html</loc>
@@ -92,6 +110,12 @@
   </url>
   <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/releasing_code.html</loc>
+  </url>
+  <url>
+    <loc>https://QuTech-Delft.github.io/qmi-course/tasks_and_service.html</loc>
   </url>
   <url>
     <loc>https://QuTech-Delft.github.io/qmi-course/what_is_qmi.html</loc>

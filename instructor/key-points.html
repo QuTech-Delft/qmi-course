@@ -244,7 +244,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="what_is_qmi.html">1. what_is_qmi</a>
+        <a href="what_is_qmi.html">1. What is QMI?</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -256,7 +256,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="hello_world.html">2. hello_world</a>
+        <a href="hello_world.html">2. 'Hello World'</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -268,7 +268,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="one_instrument_control.html">3. one_instrument_control</a>
+        <a href="one_instrument_control.html">3. Controlling an instrument</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -280,7 +280,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="qmi_configuration.html">4. qmi_configuration</a>
+        <a href="qmi_configuration.html">4. Configuring and logging</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -292,7 +292,55 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="accessing_a_remote_instrument.html">5. accessing_a_remote_instrument</a>
+        <a href="accessing_a_remote_instrument.html">5. Accessing an instrument remotely</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="tasks_and_service.html">6. Create a task and a 'service'</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="open-source_vs_internal.html">7. Open-source vs internal code</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="mypy.html">8. Good coding practises: MyPy</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="releasing_code.html">9. Releasing and versioning of QMI code</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -356,7 +404,7 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="what_is_qmi"><h2 class="section-heading"><a href="what_is_qmi.html">what_is_qmi</a></h2>
+<section id="what_is_qmi"><h2 class="section-heading"><a href="what_is_qmi.html">What is QMI?</a></h2>
 <hr class="half-width">
 <ul>
 <li>Device drivers: With device drivers instruments and devices can be
@@ -368,7 +416,7 @@ context</li>
 QMI contexts</li>
 <li>QMI signals: QMI context objects can also broadcast and receive
 signals, which can include e.g. data</li>
-</ul></section><section id="hello_world"><h2 class="section-heading"><a href="hello_world.html">hello_world</a></h2>
+</ul></section><section id="hello_world"><h2 class="section-heading"><a href="hello_world.html">'Hello World'</a></h2>
 <hr class="half-width">
 <ul>
 <li>A QMI context is created using
@@ -376,7 +424,7 @@ signals, which can include e.g. data</li>
 <li>Always remember to stop the context with
 <code>qmi.stop()</code>
 </li>
-</ul></section><section id="one_instrument_control"><h2 class="section-heading"><a href="one_instrument_control.html">one_instrument_control</a></h2>
+</ul></section><section id="one_instrument_control"><h2 class="section-heading"><a href="one_instrument_control.html">Controlling an instrument</a></h2>
 <hr class="half-width">
 <ul>
 <li>Instruments can be added into contexts with
@@ -392,7 +440,7 @@ RPC methods can be obtained with
 </li>
 <li>The returned instrument object is an RPC <em>proxy</em> object of
 the actual class object</li>
-</ul></section><section id="qmi_configuration"><h2 class="section-heading"><a href="qmi_configuration.html">qmi_configuration</a></h2>
+</ul></section><section id="qmi_configuration"><h2 class="section-heading"><a href="qmi_configuration.html">Configuring and logging</a></h2>
 <hr class="half-width">
 <ul>
 <li>
@@ -400,14 +448,56 @@ the actual class object</li>
 <li>Log levels are set within “logging” keyword section</li>
 <li>Default name and location of the log file are <code>qmi.log</code>
 and the user’s home directory</li>
-</ul></section><section id="accessing_a_remote_instrument"><h2 class="section-heading"><a href="accessing_a_remote_instrument.html">accessing_a_remote_instrument</a></h2>
+</ul></section><section id="accessing_a_remote_instrument"><h2 class="section-heading"><a href="accessing_a_remote_instrument.html">Accessing an instrument remotely</a></h2>
 <hr class="half-width">
 <ul>
-<li>
-<code>qmi.conf</code> has a JSON-like structure</li>
-<li>Log levels are set within “logging” keyword section</li>
-<li>Default name and location of the log file are <code>qmi.log</code>
-and the user’s home directory</li>
+<li>Instruments to be accessed remotely should be defined in
+`qmi.conf</li>
+<li>Connect to another QMI context using
+<code>qmi.context().connect_to_peer("&lt;context_name&gt;", peer_address="&lt;ho.st.i.p:port&gt;")</code>
+</li>
+<li>Obtain remote instrument control with
+<code>qmi.get_instrument("&lt;context_name&gt;.&lt;instrument_name&gt;")</code>
+</li>
+</ul></section><section id="tasks_and_service"><h2 class="section-heading"><a href="tasks_and_service.html">Create a task and a 'service'</a></h2>
+<hr class="half-width">
+<ul>
+<li>Instruments to be accessed remotely should be defined in
+`qmi.conf</li>
+<li>Connect to another QMI context using
+<code>qmi.context().connect_to_peer("&lt;context_name&gt;", peer_address="&lt;ho.st.i.p:port&gt;")</code>
+</li>
+<li>Obtain remote instrument control with
+<code>qmi.get_instrument("&lt;context_name&gt;.&lt;instrument_name&gt;")</code>
+</li>
+</ul></section><section id="open-source_vs_internal"><h2 class="section-heading"><a href="open-source_vs_internal.html">Open-source vs internal code</a></h2>
+<hr class="half-width">
+<ul>
+<li>In Github we have open-source QMI and in Gitlab the internal
+closed-source QMI</li>
+<li>Users can make requests via opening new issues a.k.a. tickets in the
+repository</li>
+<li>You can and are welcome to contribute too! Just follow the
+guidelines</li>
+</ul></section><section id="mypy"><h2 class="section-heading"><a href="mypy.html">Good coding practises: MyPy</a></h2>
+<hr class="half-width">
+<ul>
+<li>MyPy is a tool to check <em>typing</em> in code</li>
+<li>Using <em>typing</em> can reveal coding errors like mis- or double
+use of same variable leading to exceptions in code execution</li>
+<li>A good IDE can help to find typing issues</li>
+</ul></section><section id="releasing_code"><h2 class="section-heading"><a href="releasing_code.html">Releasing and versioning of QMI code</a></h2>
+<hr class="half-width">
+<ul>
+<li>While main version-revision development happens through the
+<em>main</em> branch, also version-revision-specific development can be
+done through <em>stable branches</em>
+</li>
+<li>User can also use <em>tags</em> as references to code at certain
+point of time</li>
+<li>The usual way to install QMI is using Pip and a Pypi
+<em>package</em> of QMI. But, also <em>releases</em> can be downloaded
+and used for the installation.</li>
 </ul></section>
 </div>
     </main>
@@ -455,9 +545,9 @@ and the user’s home directory</li>
   "creativeWorkStatus": "active",
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/key-points.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/key-points.html",
-  "dateCreated": "2025-08-21",
-  "dateModified": "2025-08-21",
-  "datePublished": "2025-08-21"
+  "dateCreated": "2025-08-22",
+  "dateModified": "2025-08-22",
+  "datePublished": "2025-08-22"
 }
 
   </script><script>
