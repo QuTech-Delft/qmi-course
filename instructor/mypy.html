@@ -468,47 +468,164 @@ type checking was done. The solution would be to cast the
 <code>input</code> values either as an <em>int</em> (will crash if a
 decimal value is inputted!) or <em>float</em> before or at the function
 call to <code>summer_fun</code>.</p>
-<p>Let’s do an exercise with typing.</p>
+<div class="Challenge">
+<p>Let’s do some exercises with typing.</p>
 <p>Install MyPy:</p>
 <pre class="shell"><code>pip install mypy</code></pre>
 <p>Create a program with following code:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>debts <span class="op">=</span> <span class="st">"-100.00"</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>alice_has <span class="op">=</span> <span class="bu">input</span>(<span class="st">"How much money does Alice have?</span><span class="ch">\n</span><span class="st"> &gt; "</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>bob_has <span class="op">=</span> <span class="bu">input</span>(<span class="st">"How much money does Bob have?</span><span class="ch">\n</span><span class="st"> &gt; "</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>alice_and_bob_have <span class="op">=</span> alice_has <span class="op">+</span> bob_has</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>left_sum <span class="op">=</span> debts <span class="op">+</span> alice_and_bob_have</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Alice and Bob have together </span><span class="sc">{</span>alice_and_bob_have<span class="sc">:0.2f}</span><span class="ss"> of money."</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"They need to pay </span><span class="sc">{</span>debts<span class="sc">:0.2f}</span><span class="ss"> money."</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="cf">if</span> left_sum <span class="op">&lt;</span> <span class="dv">0</span>:</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Alice and Bob have enough money and are left with </span><span class="sc">{</span>left_sum<span class="sc">:0.2f}</span><span class="ss"> money."</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="cf">elif</span> left_sum <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Alice and Bob do not have enough money and need </span><span class="sc">{</span><span class="op">-</span>left_sum<span class="sc">:0.2f}</span><span class="ss"> more."</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Alice and Bob have exactly enough money to pay their debts."</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> summer_fun(a: <span class="bu">int</span>, b: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    <span class="bu">sum</span> <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>debts: <span class="bu">str</span> <span class="op">=</span> <span class="op">-</span><span class="fl">100.00</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>alice_has <span class="op">=</span> <span class="bu">input</span>(<span class="st">"How much money does Alice have?</span><span class="ch">\n</span><span class="st"> &gt; "</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>bob_has <span class="op">=</span> <span class="bu">input</span>(<span class="st">"How much money does Bob have?</span><span class="ch">\n</span><span class="st"> &gt; "</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>alice_and_bob_have <span class="op">=</span> summer_func(alice_has, bob_has)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>left_sum: <span class="bu">int</span> <span class="op">=</span> debts <span class="op">+</span> alice_and_bob_have</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Alice and Bob have together </span><span class="sc">{</span>alice_and_bob_have<span class="sc">:0.2f}</span><span class="ss"> of money."</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"They need to pay </span><span class="sc">{</span><span class="op">-</span>debts<span class="sc">:0.2f}</span><span class="ss"> money."</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="cf">if</span> left_sum <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Alice and Bob have enough money and are left with </span><span class="sc">{</span>left_sum<span class="sc">:0.2f}</span><span class="ss"> money."</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="cf">elif</span> left_sum <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Alice and Bob do not have enough money and need </span><span class="sc">{</span><span class="op">-</span>left_sum<span class="sc">:0.2f}</span><span class="ss"> more."</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Alice and Bob have exactly enough money to pay their debts."</span>)</span></code></pre>
 </div>
 <p>Run MyPy check on the program</p>
-<pre class="shell"><code>mypy alice_and_bob_chained_in_debts.py</code></pre>
+<pre class="shell"><code>mypy alice_and_bob_in_debts.py</code></pre>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>scratch.py:8: error: Unsupported operand types for &lt; ("str" and "int")  [operator]
-scratch.py:10: error: Unsupported operand types for &gt; ("str" and "int")  [operator]
-scratch.py:11: error: Unsupported operand type for unary - ("str")  [operator]
-Found 3 errors in 1 file (checked 1 source file)</code></pre>
+<pre class="output" tabindex="0"><code>mypy_exercise.py:5: error: Incompatible types in assignment (expression has type "float", variable has type "str")  [assignment]
+mypy_exercise.py:8: error: Argument 1 to "summer_fun" has incompatible type "str"; expected "int"  [arg-type]
+mypy_exercise.py:8: error: Argument 2 to "summer_fun" has incompatible type "str"; expected "int"  [arg-type]
+mypy_exercise.py:9: error: Unsupported operand types for + ("str" and "int")  [operator]
+mypy_exercise.py:11: error: Unsupported operand type for unary - ("str")  [operator]
+Found 5 errors in 1 file (checked 1 source file)</code></pre>
 </div>
 <p>If you made the program with a nice IDE like PyCharm, probably some
 squiggly lines also appear on the same lines where MyPy raised the
-errors, indicating where the errors are. Now, with the help of MyPy
-and/or IDE, try to fix the program to work as expected. Add also typing
-to the variables so that no MyPy errors are raised.</p>
-<p>Exercise 2: Make a program based on the first example above. Create a
-function that accepts at least one input parameter and returns at least
-one value. Make a call to the function. Type (all) the variable(s) and
-the function and test it with MyPy. Make the test pass without
-errors.</p>
+errors, indicating where the errors are.</p>
+<blockquote>
+<p>Exercise 1: Now, with the help of MyPy and/or IDE, can you identify
+the issues in the code?</p>
+</blockquote>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>The MyPy output tells us the typing of variable <code>debts</code> is
+wrong: it is annotated as a <em>str</em> but the value is a
+<em>float</em>. The call to <code>summer_fun</code> has also problems.
+This is because <code>input</code> call returns always a string. The 4th
+line of Mypy error now shows that we cannot add together
+<code>debts</code> and a supposed <em>int</em> return value from
+<code>summer_fun</code>. The last line means that we cannot take a
+‘minus’ of a string.</p>
+</div>
+</div>
+</div>
+</div>
+<blockquote>
+<p>Exercise 2: Now let’s assume you try to correct the issues by
+changing the annotation of <code>debts</code> to <em>float</em>, and
+casting the inputs to <code>summer_fun</code> as integers using
+<code>alice_has = int(alice_has)</code> and
+<code>bob_has = int(bob_has)</code>. You see the same amount of errors!
+Why?</p>
+</blockquote>
+<div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
+  <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div class="accordion-body">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>mypy_exercise.py:8: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
+mypy_exercise.py:9: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
+mypy_exercise.py:10: error: Argument 1 to "summer_fun" has incompatible type "str"; expected "int"  [arg-type]
+mypy_exercise.py:10: error: Argument 2 to "summer_fun" has incompatible type "str"; expected "int"  [arg-type]
+mypy_exercise.py:11: error: Incompatible types in assignment (expression has type "float", variable has type "int")  [assignment]
+Found 5 errors in 1 file (checked 1 source file)</code></pre>
+</div>
+<p>The variables <code>alice_has</code> and <code>bob_has</code> are
+still typed as the original type, <em>str</em> even after casting.
+Instead of changing the variable assignment, MyPy warns that you are
+doing something potentially harmful and errors out. Therefore the
+<code>summer_fun</code> input argument errors did not go away, either.
+The last error is also new: Now Mypy complains that,
+<code>left_sum</code> being annotated as an <em>int</em>, the sum of
+<code>debts</code> and <code>alice_and_bob_have</code> will be
+<em>float</em>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>So we realize that the casting went wrong, and that there is an issue
+with typing assignment due to some values typed as <em>float</em> and
+others as <em>int</em>.</p>
+<blockquote>
+<p>Exercise 3: OK, let’s fix this further by doing the casting directly
+in the function call, without reassigning the <code>alice_has</code> and
+<code>bob_has</code>. We also cast the <code>debts</code> in the
+summation as an <em>int</em>. What does MyPy say now? Will the code
+work?</p>
+</blockquote>
+<div id="accordionInstructor3" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
+  <h3 class="accordion-header" id="headingInstructor3">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div class="accordion-body">
+<p>Mypy says now <code>Success: no issues found in 1 source file</code>.
+Also, the code will run if the user inputs whole numbers. Notably, the
+print-outs also work, giving the values with two decimal accuracy like
+indicated by the <code>:0.2f</code> formatter in the strings. But all is
+not well here. What if you want to use a decimal value for ‘money’, like
+30.1? You get an exception out:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Traceback (most recent call last):
+  File "mypy_exercise.py", line 8, in &lt;module&gt;
+    alice_and_bob_have = summer_fun(int(alice_has), int(bob_has))
+                                    ~~~^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '30.1'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>So, the code works, but only with whole numbers and not with
+decimals. To fix this we can use the fact that Python can cast directly
+to float both integer and decimal input strings. Now, cast the
+<code>alice_has</code> and <code>bob_has</code> into <em>float</em>s. We
+should also allow the <code>summer_fun</code> input parameters be
+<em>float</em>s and return a <em>float</em> as well. Then as last step
+the <code>left_sum</code> should also be typed as a <em>float</em> and
+no casting of <code>debts</code> should be done.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -520,6 +637,7 @@ errors.</p>
 <li>Using <em>typing</em> can reveal coding errors like mis- or double
 use of same variable leading to exceptions in code execution</li>
 <li>A good IDE can help to find typing issues</li>
+<li>Mypy does not check typing for string formatting</li>
 </ul></div>
 </div>
 </div>
