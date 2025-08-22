@@ -3,8 +3,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 
-[pandoc]: https://pandoc.org/MANUAL.html
-[r-markdown]: https://rmarkdown.rstudio.com/
-[rstudio]: https://www.rstudio.com/
-[carpentries-workbench]: https://carpentries.github.io/sandpaper-docs/
-
+[OSS QMI in Github]: https://github.com/QuTech-Delft/QMI
+[CSS QMI in Gitlab]: https://gitlab.tudelft.nl/qmi/qmi
+[QMI readthedocs]: https://qmi.readthedocs.io
+[QMI in Pypi]: https://pypi.org/project/qmi
