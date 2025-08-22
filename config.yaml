@@ -72,6 +72,10 @@ episodes:
 - one_instrument_control.Rmd
 - qmi_configuration.Rmd
 - accessing_a_remote_instrument.Rmd
+- tasks_and_service.Rmd
+- open-source_vs_internal.Rmd
+- mypy.Rmd
+- releasing_code.Rmd
 
 # Information for Learners
 learners:

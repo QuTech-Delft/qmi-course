@@ -1,6 +1,8 @@
 ---
-title: "what_is_qmi"
+title: "What is QMI?"
 output: html_document
+teaching: 10
+exercises: 0
 ---
 
 ::: questions

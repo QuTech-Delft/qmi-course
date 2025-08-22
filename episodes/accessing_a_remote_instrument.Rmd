@@ -1,14 +1,16 @@
 ---
-title: "accessing_a_remote_instrument"
+title: "Accessing an instrument remotely"
 output: html_document
+teaching: 5
+exercises: 10
 ---
 
 ::: questions
--   What are QMI configuration and log files?
+-   How can we access the instruments remotely?
 :::
 
 ::: objectives
--   Know how to create a basic configuration file.
+-   Learn to connect between QMI contexts and control instruments over contexts
 :::
 
 ## Accessing a remote instrument
@@ -58,7 +60,7 @@ nsg.get_sample()
 > NOTE 2: `peer_address=”127.0.0.1:40001”` also works as the ‘localhost’ address changes into the IPv4 address in the background. This exercise demonstrated how the second Python program is able to access the `NoisySineGenerator` instance proxy that exists within the first Python program (and QMI context within it). To do this, the QMI context of the second program connects to the “instr_server” context via TCP. Behind the scenes, the two contexts exchange messages through this connection to arrange for the method `get_sample()` to be called in the real instrument instance through the proxy, and the answer to be sent back to the calling proxy in the second program.
 
 ::: keypoints
--   `qmi.conf` has a JSON-like structure
--   Log levels are set within "logging" keyword section
--   Default name and location of the log file are `qmi.log` and the user's home directory
+-   Instruments to be accessed remotely should be defined in `qmi.conf
+-   Connect to another QMI context using `qmi.context().connect_to_peer("<context_name>", peer_address="<ho.st.i.p:port>")`
+-   Obtain remote instrument control with `qmi.get_instrument("<context_name>.<instrument_name>")`
 :::
