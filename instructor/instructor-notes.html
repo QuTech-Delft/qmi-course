@@ -430,11 +430,20 @@ any links that you are not going to use.
 <h3 id="one_instrument_control-headingInstructor1">
 <a href="one_instrument_control.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#one_instrument_control-headingInstructor1"></a>
 </h3>
-<p>View that class “docstring” with</p>
-<div class="codewrapper sourceCode" id="cb3">
+<p>A bit shorter listing of the attributes of the object, you can
+use</p>
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="bu">help</span>(nsg)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="bu">dir</span>(nsg)</span></code></pre>
+</div>
+<p>but it is not easy to read and has also internal and non-RPC variable
+and callable methods present.</p>
+<p>You can also get “help” of any method present. Try:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">help</span>(nsg.get_sample)</span></code></pre>
 </div>
 <hr>
 <br></section><section id="qmi_configuration"><h2 class="section-heading"><a href="qmi_configuration.html">Configuring and logging</a></h2>

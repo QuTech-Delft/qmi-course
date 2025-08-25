@@ -353,7 +353,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Controlling an instrument</h1>
-        <p>Last updated on 2025-08-22 |
+        <p>Last updated on 2025-08-25 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/one_instrument_control.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -410,30 +410,13 @@ from the device driver.</p>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>qmi.start(<span class="st">"nsg_demo"</span>, <span class="va">None</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>nsg <span class="op">=</span> qmi.make_instrument(<span class="st">"nsg"</span>, NoisySineGenerator)</span></code></pre>
 </div>
-<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
-  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
-</button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
-<div class="accordion-body">
-<p>View that class “docstring” with</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="bu">help</span>(nsg)</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
 <p>Now we have an instrument object <code>nsg</code> present in Python.
 The instrument is also added into the context. This can be checked
 with:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>qmi.show_instruments()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>qmi.show_instruments()</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -447,10 +430,10 @@ nsg_demo.nsg  NoisySineGenerator
 object “nsg” present in context “nsg_demo”. The type confirms the
 instrument object is of expected class type. Alternative way to confirm
 this is simply to type the object in Python.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>nsg</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>nsg</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -465,41 +448,55 @@ that the proxy object does not have the full class interface of the
 device driver, but only the variables that are present in QMI proxy
 class and functions that have been selected to be RPC callable. We can
 list the variables of the object with</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="bu">help</span>(nsg)</span></code></pre>
+</div>
+<p>It prints out the class docstring, a listing of its callable RPC
+methods, signals and class constants.</p>
+<p>Here are useful information, like the docstring which is the
+documentation string of the class object. Then all entries listed as
+“RPC methods” are the callable RPC functions of the object, with their
+expected input parameters and return value type. A few methods related
+to the proxy locking (<code>lock</code>, <code>unlock</code>,
+<code>is_locked</code> and <code>force unlock</code> are not present,
+though. We also won’t handle these methods in the course, but you can
+have a look at the <a href="https://qmi.readthedocs.io/en/latest/tutorial.html#locking-an-instrument" class="external-link">tutorial</a>.
+You see also empty listings “signals” and “constants”, but for this
+instrument class there are none present.</p>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>A bit shorter listing of the attributes of the object, you can
+use</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="bu">vars</span>(nsg)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="bu">dir</span>(nsg)</span></code></pre>
 </div>
-<p>It gives out the whole variable dictionary in a one long string,
-which is a bit difficult to read. We can try to make it a bit more
-readable by doing:</p>
+<p>but it is not easy to read and has also internal and non-RPC variable
+and callable methods present.</p>
+<p>You can also get “help” of any method present. Try:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>[<span class="bu">print</span>(k, v, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>) <span class="cf">for</span> k, v <span class="kw">in</span> <span class="bu">vars</span>(nsg).items()]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">help</span>(nsg.get_sample)</span></code></pre>
 </div>
-<p>Here are useful information, like the <code>__doc__</code> which is
-the documentation string of the class object. Then all entries listed as
-“bound method” are the callable RPC functions of the object. If you
-compare this with the readthedocs documentation of the class API, you
-notice that a few methods like <code>get_category</code> and
-<code>release_rpc_object</code> are not present. These methods are not
-useful for the user, so they are also not available in the proxy. The
-double underscores in <code>__enter__</code> and <code>__exit__</code>
-also indicate that user should not call these directly, even if they are
-available. Those are used for the instrument context control. A bit
-shorter listing of the attributes of the object, you can use</p>
+</div>
+</div>
+</div>
+</div>
+<p>Anyhow, in the printed out listing, a lot of useful methods are
+present and supported through the proxy. Let’s try one:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="bu">dir</span>(nsg)</span></code></pre>
-</div>
-<p>Anyhow, in the printed out list, a lot of useful methods are present
-and supported through the proxy. Let’s try one:</p>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>nsg.get_sample()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>nsg.get_sample()</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -509,13 +506,13 @@ and supported through the proxy. Let’s try one:</p>
 <p>So we get returned one sample of the sine wave at a random moment.
 Let’s do for demonstration purpose a little for loop print out the sine
 wave of our generator “instrument”:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> nsg.get_sample()) <span class="op">+</span> <span class="st">"*"</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>    time.sleep(<span class="fl">0.01</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> nsg.get_sample()) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    time.sleep(<span class="fl">0.01</span>)</span></code></pre>
 </div>
 <p>Nice huh? Let’s then close this context with <code>qmi.stop()</code>
 and exit Python with <code>exit()</code>and prepare for next
@@ -605,7 +602,7 @@ any links that you are not going to use.
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/one_instrument_control.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/one_instrument_control.html",
   "dateCreated": "2025-08-25",
-  "dateModified": "2025-08-22",
+  "dateModified": "2025-08-25",
   "datePublished": "2025-08-25"
 }
 
