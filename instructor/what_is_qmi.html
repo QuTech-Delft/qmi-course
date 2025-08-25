@@ -357,7 +357,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>What is QMI?</h1>
-        <p>Last updated on 2025-08-22 |
+        <p>Last updated on 2025-08-25 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/what_is_qmi.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -418,7 +418,7 @@ drivers are importable classes in QMI with (a selection of) functions
 with which the device can be controlled and monitored. QMI has currently
 device drivers for 45 manufacturers and 80 devices. In the picture below
 you can see most of the supported instruments in QMI.</p>
-<figure><img src="https://qutech-delft.github.io/qmi-course/figures/montage.png" alt="Montage of QMI drivers manufacturer and devices" class="figure mx-auto d-block"><div class="figcaption">Montage of QMI drivers manufacturer and
+<figure><img src="../fig/montage.png" alt="Montage of QMI drivers manufacturer and devices" class="figure mx-auto d-block"><div class="figcaption">Montage of QMI drivers manufacturer and
 devices</div>
 </figure></section><section><h2 class="section-heading" id="qmi-contexts">QMI contexts<a class="anchor" aria-label="anchor" href="#qmi-contexts"></a></h2>
 <hr class="half-width"><p>When using QMI in a Python program, a <em>context</em> is started.
@@ -432,7 +432,7 @@ groups in separate contexts and there is therefore no need to make one
 big program that contains all the instruments, tasks and whatever logic
 or timing is necessary. The programs can that way be made modular, with
 easy addition or removal of contexts.</p>
-<figure><img src="https://qutech-delft.github.io/qmi-course/figures/qmi_contexts.png" alt="Figure 1: An example of three QMI contexts where two instrument device drivers are added to QMI context 1. Then we have context 2, that runs a task, which is configured to make connection to context one, and to control the instruments in it. This second contexts now sends also out settings and status signals which can e.g. be forwarder to a database. A third context monitors the task status in context two and instrument status in context one. This context is hooked in the status signal and at specific signal values or circumstances could either tell context two to change settings or stop task, or send specific commands to the instruments in context one." class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
+<figure><img src="../fig/qmi_contexts.png" alt="Figure 1: An example of three QMI contexts where two instrument device drivers are added to QMI context 1. Then we have context 2, that runs a task, which is configured to make connection to context one, and to control the instruments in it. This second contexts now sends also out settings and status signals which can e.g. be forwarder to a database. A third context monitors the task status in context two and instrument status in context one. This context is hooked in the status signal and at specific signal values or circumstances could either tell context two to change settings or stop task, or send specific commands to the instruments in context one." class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
 two instrument device drivers are added to QMI context 1. Then we have
 context 2, that runs a task, which is configured to make connection to
 context one, and to control the instruments in it. This second contexts
@@ -545,7 +545,7 @@ any links that you are not going to use.
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/what_is_qmi.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/what_is_qmi.html",
   "dateCreated": "2025-08-25",
-  "dateModified": "2025-08-22",
+  "dateModified": "2025-08-25",
   "datePublished": "2025-08-25"
 }
 
