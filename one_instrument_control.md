@@ -28,14 +28,6 @@ qmi.start("nsg_demo", None)
 nsg = qmi.make_instrument("nsg", NoisySineGenerator)
 ```
 
-::: instructor
-View that class "docstring" with
-
-``` python
-help(nsg)
-```
-:::
-
 Now we have an instrument object `nsg` present in Python. The instrument is also added into the context. This can be checked with:
 
 ``` python
@@ -62,22 +54,30 @@ nsg
 As can be seen, the created object is actually an RPC proxy of the actual instrument object. This has a couple of consequences: The first is that the proxy object can be now shared through the context with other contexts, allowing remote control of the instrument. The second is that the proxy object does not have the full class interface of the device driver, but only the variables that are present in QMI proxy class and functions that have been selected to be RPC callable. We can list the variables of the object with
 
 ``` python
-vars(nsg)
+help(nsg)
 ```
 
-It gives out the whole variable dictionary in a one long string, which is a bit difficult to read. We can try to make it a bit more readable by doing:
+It prints out the class docstring, a listing of its callable RPC methods, signals and class constants.
 
-``` python
-[print(k, v, "\n") for k, v in vars(nsg).items()]
-```
+Here are useful information, like the docstring which is the documentation string of the class object. Then all entries listed as “RPC methods” are the callable RPC functions of the object, with their expected input parameters and return value type. A few methods related to the proxy locking (`lock`, `unlock`, `is_locked` and `force unlock` are not present, though. We also won't handle these methods in the course, but you can have a look at the [tutorial](https://qmi.readthedocs.io/en/latest/tutorial.html#locking-an-instrument). You see also empty listings "signals" and "constants", but for this instrument class there are none present.
 
-Here are useful information, like the `__doc__` which is the documentation string of the class object. Then all entries listed as “bound method” are the callable RPC functions of the object. If you compare this with the readthedocs documentation of the class API, you notice that a few methods like `get_category` and `release_rpc_object` are not present. These methods are not useful for the user, so they are also not available in the proxy. The double underscores in `__enter__` and `__exit__` also indicate that user should not call these directly, even if they are available. Those are used for the instrument context control. A bit shorter listing of the attributes of the object, you can use
+::: instructor
+A bit shorter listing of the attributes of the object, you can use
 
 ``` python
 dir(nsg)
 ```
 
-Anyhow, in the printed out list, a lot of useful methods are present and supported through the proxy. Let’s try one:
+but it is not easy to read and has also internal and non-RPC variable and callable methods present.
+
+You can also get "help" of any method present. Try:
+
+``` python
+help(nsg.get_sample)
+```
+:::
+
+Anyhow, in the printed out listing, a lot of useful methods are present and supported through the proxy. Let’s try one:
 
 ``` python
 nsg.get_sample()
