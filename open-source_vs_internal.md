@@ -27,7 +27,7 @@ repositories.
 
 By browsing the repositories from the links above (if you have access for both), you can get familiar with the code base of both projects. You will see things on the site like “Issues” or “Pull requests” (Github) | “Merge requests” (Gitlab) and “Issue Board” (Gitlab) among others. The development is done normally by tackling the “Issues”. We can call them as “Issue tickets” or just “tickets” as well.
  
-![Figure 2: An issue list in Github.](figures/Github_issue_list.png)
+![Figure 2: An issue list in Github.](fig/Github_issue_list.png)
 
 The use of such issue list is that we want to have more traceable and logical system for the development. If a developer or user notices a bug or another issue with the code, or would like to have new features or functionalities, it is best to describe it (as well as possible) in an issue ticket, instead of immediately starting to bash through some changes in the code and try to push that through in the code base. In any case where there is more than one person involved in the code base (and usually even for the lone wolf developer) this is a good idea to prevent too eager contributors messing up the code.
 
@@ -39,7 +39,7 @@ Another common pitfall to avoid is to make too large tickets. If the new feature
 ### Tracking issue progress on a board
 A ticket progress can be followed on a issue board. A board consists of at least “new” or “open” column and “done” or “closed” columns. In between there can be several other columns to keep track of the ticket progress, like “refinement”, “in progress”, “for review” and others. Below is an example of QMI OSS (private) issue development board. 
  
-![Figure 3: QMI issue development board.](figures/Github_devboard.png)
+![Figure 3: QMI issue development board.](fig/Github_devboard.png)
 
 The general progress order is from left to right, where first new issues are made in the first column. If the ticket is written clear and concise enough, it can be moved to be evaluated by the team in “To poker” column.  Here, the ticket is “pokered” to have an effort score and can then be then moved to “Backlog” column to wait someone to start working on the issue. Or directly to “In progress” if the issue is going to be worked on straight away. In the code base a new branch is opened (usually from main branch for the repository) to work on the ticket. When the ticket is ready, a pull|merge request is made for the request and the ticket is moved into the “In review” column. Another developer must review the ticket and accept it before the new code in the new branch can be merged. After the code is merged back to its origin, the issue can be moved into the “Pending release” column. When ‘enough’ (term is relative here) issues are in this column, a new release of the code can be made and finally the ticket is moved into “Done”.
 
