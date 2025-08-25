@@ -101,6 +101,6 @@ Nice huh? Let’s then close this context with `qmi.stop()` and exit Python with
 ::: keypoints
 -   Instruments can be added into contexts with `<instrument_object> = qmi.make_instrument("<name>", <ClassName>, <possible_extra_parameters>)`
 -   Instrument class description can be seen with `help(<instrument_object>)`
--   Detailed information about the object and available variables and RPC methods can be obtained with `vars(<instrument_object>)` and `dir(<instrument_object>)`
+-   Detailed information about the object and variables can be obtained with `dir(<instrument_object>)`
 -   The returned instrument object is an RPC *proxy* object of the actual class object
 :::
