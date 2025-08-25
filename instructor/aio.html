@@ -799,7 +799,7 @@ instrument class there are none present.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>A bit shorter listing of the attributes of the object, you can
 use</p>
@@ -860,10 +860,8 @@ example.</p>
 <li>Instrument class description can be seen with
 <code>help(&lt;instrument_object&gt;)</code>
 </li>
-<li>Detailed information about the object and available variables and
-RPC methods can be obtained with
-<code>vars(&lt;instrument_object&gt;)</code> and
-<code>dir(&lt;instrument_object&gt;)</code>
+<li>Detailed information about the object and variables can be obtained
+with <code>dir(&lt;instrument_object&gt;)</code>
 </li>
 <li>The returned instrument object is an RPC <em>proxy</em> object of
 the actual class object</li>
