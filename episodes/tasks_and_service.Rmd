@@ -40,7 +40,7 @@ The new configuration will have an extension for the background process:
             "host": "127.0.0.1",
             "tcp_server_port": 40002,
             "enabled": true,
-            "program_module": "task_demo "
+            "program_module": "task_demo"
         }
     }
 }
@@ -159,7 +159,7 @@ There are plenty of other things going on on this example, like the use of a cus
 Further, the amplitude control through the task settings actually utilizes the QMI’s signalling feature. For more details on this, you can read into [signalling](https://qmi.readthedocs.io/en/latest/design.html#signalling) and look at API of [qmi.core.task](https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#module-qmi.core.task) in the documentation.
 
 ::: keypoints
--   Instruments to be accessed remotely should be defined in \`qmi.conf
--   Connect to another QMI context using `qmi.context().connect_to_peer("<context_name>", peer_address="<ho.st.i.p:port>")`
--   Obtain remote instrument control with `qmi.get_instrument("<context_name>.<instrument_name>")`
+-   Also QMI tasks need to be defined in `qmi.conf`. To enable running the task a a service, parameters "enabled" and "program_module" need to be define.
+-   A task consists of a `QMI_Task` class and a `QMI_TaskRunner` class. The latter can be customized to include RPC methods in tasks.
+-   `qmi_proc` is an executable created while installing QMI. It can be used to start, stop and checking status of (local) QMI tasks running as background processes.
 :::
