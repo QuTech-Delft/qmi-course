@@ -142,6 +142,6 @@ So, the code works, but only with whole numbers and not with decimals. To fix th
 ::: keypoints
 -   MyPy is a tool to check *typing* in code
 -   Using *typing* can reveal coding errors like mis- or double use of same variable leading to exceptions in code execution
--   A good IDE can help to find typing issues
+-   A good IDE can help to find typing (and other coding) issues
 -   Mypy does not check typing for string formatting
 :::
