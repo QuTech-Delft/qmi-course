@@ -18,13 +18,13 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="QMI course" src="../assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
-          <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
+        <img id="incubator-logo" alt="QMI course" src="../assets/images/incubator-logo.svg"><span class="badge text-bg-warning">
+          <abbr title="This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
-              <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
-              Pre-Alpha
+              <i aria-hidden="true" class="icon" data-feather="alert-triangle" style="border-radius: 5px"></i>
+              Alpha
             </a>
-            <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
+            <span class="visually-hidden">This lesson is in the alpha phase, which means that it has been taught once and lesson authors are iterating on feedback.</span>
           </abbr>
         </span>
 
@@ -218,10 +218,6 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#what-is-qmi">What is QMI?</a></li>
-<li><a href="#device-drivers">Device drivers</a></li>
-<li><a href="#qmi-contexts">QMI contexts</a></li>
-<li><a href="#remote-procedure-calls">Remote Procedure Calls</a></li>
-<li><a href="#qmi-signals">QMI signals</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -358,7 +354,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>What is QMI?</h1>
-        <p>Last updated on 2025-11-11 |
+        <p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/what_is_qmi.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -413,48 +409,27 @@ process that needs to run temporarily or indefinitely. It offers
 started, stopped, monitored and controlled. With these features it can
 be used as basis for monitoring and control of complicated setups,
 distributed over multiple locations.</p>
-</section><section><h2 class="section-heading" id="device-drivers">Device drivers<a class="anchor" aria-label="anchor" href="#device-drivers"></a></h2>
-<hr class="half-width"><p>With device drivers instruments and devices can be controlled. Device
+</section><div class="section level1">
+<h1 id="main-features">Main Features<a class="anchor" aria-label="anchor" href="#main-features"></a></h1>
+<div class="section level2">
+<h2 id="device-drivers">Device drivers<a class="anchor" aria-label="anchor" href="#device-drivers"></a></h2>
+<p>With device drivers instruments and devices can be controlled. Device
 drivers are importable classes in QMI with (a selection of) functions
 with which the device can be controlled and monitored. QMI has currently
 device drivers for 45 manufacturers and 80 devices. In the picture below
 you can see most of the supported instruments in QMI.</p>
 <figure><img src="../fig/montage.png" alt="Montage of QMI drivers manufacturer and devices" class="figure mx-auto d-block"><div class="figcaption">Montage of QMI drivers manufacturer and
 devices</div>
-</figure></section><section><h2 class="section-heading" id="qmi-contexts">QMI contexts<a class="anchor" aria-label="anchor" href="#qmi-contexts"></a></h2>
-<hr class="half-width"><p>When using QMI in a Python program, a <em>context</em> is started.
-While the program is running, this context contains all information
-about the device drivers and tasks added in the context in the program.
-One of the main features of QMI is that these contexts are also
-approachable from another QMI context, and the instruments and tasks in
-the context can be controlled through another context, see also Figure
-1. Advantages of this are that instruments can be grouped in logical
-groups in separate contexts and there is therefore no need to make one
-big program that contains all the instruments, tasks and whatever logic
-or timing is necessary. The programs can that way be made modular, with
-easy addition or removal of contexts.</p>
-<figure><img src="../fig/qmi_contexts.png" alt="Figure 1: An example of three QMI contexts where two instrument device drivers are added to QMI context 1. Then we have context 2, that runs a task, which is configured to make connection to context one, and to control the instruments in it. This second contexts now sends also out settings and status signals which can e.g. be forwarder to a database. A third context monitors the task status in context two and instrument status in context one. This context is hooked in the status signal and at specific signal values or circumstances could either tell context two to change settings or stop task, or send specific commands to the instruments in context one." class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
-two instrument device drivers are added to QMI context 1. Then we have
-context 2, that runs a task, which is configured to make connection to
-context one, and to control the instruments in it. This second contexts
-now sends also out <em>settings</em> and <em>status</em> signals which
-can e.g. be forwarder to a database. A third context monitors the task
-status in context two and instrument status in context one. This context
-is hooked in the <em>status</em> signal and at specific signal values or
-circumstances could either tell context two to change settings or stop
-task, or send specific commands to the instruments in context one.</div>
-</figure></section><section><h2 class="section-heading" id="remote-procedure-calls">Remote Procedure Calls<a class="anchor" aria-label="anchor" href="#remote-procedure-calls"></a></h2>
-<hr class="half-width"><p>Second main feature of QMI is its Remote Procedure Call (RPC)
+</figure></div>
+<div class="section level2">
+<h2 id="remote-procedure-calls">Remote Procedure Calls<a class="anchor" aria-label="anchor" href="#remote-procedure-calls"></a></h2>
+<p>The second main feature of QMI is its Remote Procedure Call (RPC)
 protocol that enables communication between computers in the same
-network. The three contexts in Figure 1 could reside in three different
-PCs and communicate with each other with the help of the RPC protocol
-and QMI <em>signals</em>. The user only needs to setup QMI configuration
-files for these contexts, where information about other contexts are
-present. That way the contexts know where to look for other contexts. It
-is possible to also look for contexts not defined in the configuration
-files, but more about that later.</p>
-</section><section><h2 class="section-heading" id="qmi-signals">QMI signals<a class="anchor" aria-label="anchor" href="#qmi-signals"></a></h2>
-<hr class="half-width"><p>The last main feature to mention is the QMI signals. The device
+network.</p>
+</div>
+<div class="section level2">
+<h2 id="qmi-signals">QMI signals<a class="anchor" aria-label="anchor" href="#qmi-signals"></a></h2>
+<p>The third main feature to mention is the QMI signals. The device
 drivers and tasks can be equipped with signal publishers and receivers.
 These can be used e.g. to send simple triggering signals between tasks
 or devices, or to send data to some external party. They can become
@@ -465,6 +440,48 @@ database, like <a href="https://www.influxdata.com/" class="external-link">Influ
 own <a href="https://qutech-data-lake.gitlab.io/docs/latest/" class="external-link">Quantum
 Data Lake</a>, for later analysis. The signals have been also used for
 remote live monitoring by sending data to a <a href="https://grafana.com/docs/grafana/latest/" class="external-link">Grafana</a> server.</p>
+</div>
+<div class="section level2">
+<h2 id="qmi-contexts">QMI contexts<a class="anchor" aria-label="anchor" href="#qmi-contexts"></a></h2>
+<p>When starting QMI in a Python program, a QMI <em>context</em> is
+started. While the program is running, this context contains all
+information about the device drivers and tasks added in the context in
+the program. Another main feature of QMI is that these contexts are also
+approachable from another QMI context, and the instruments and tasks in
+the context can be controlled through another context, see Figure 1. The
+three contexts in Figure 1 could reside in three different PCs and
+communicate with each other with the help of the RPC protocol and QMI
+<em>signals</em>. The user only needs to setup QMI configuration files
+for these contexts, where information about other contexts are present.
+That way the contexts know where to look for other contexts. It is
+possible to also look for contexts not defined in the configuration
+files, but more about that later.</p>
+<figure><img src="../fig/qmi_contexts.png" alt="Figure 1: An example of three QMI contexts where two instrument device drivers are added to QMI context 1. Then we have context 2, that runs a task, which is configured to make connection to context one, and to control the instruments in it. This second contexts now sends also out settings and status signals which can e.g. be forwarder to a database. A third context monitors the task status in context two and instrument status in context one. This context is hooked in the status signal and at specific signal values or circumstances could either tell context two to change settings or stop task, or send specific commands to the instruments in context one." class="figure mx-auto d-block"><div class="figcaption">Figure 1: An example of three QMI contexts where
+two instrument device drivers are added to QMI context 1. Then we have
+context 2, that runs a task, which is configured to make connection to
+context one, and to control the instruments in it. This second contexts
+now sends also out settings and status signals which can e.g. be
+forwarder to a database. A third context monitors the task status in
+context two and instrument status in context one. This context is hooked
+in the status signal and at specific signal values or circumstances
+could either tell context two to change settings or stop task, or send
+specific commands to the instruments in context one.</div>
+</figure><div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>Advantages of this are that instruments can be grouped in logical
+groups in separate contexts and there is therefore no need to make one
+big program that contains all the instruments, tasks and whatever logic
+or timing is necessary. The programs can that way be made modular, with
+easy addition or removal of contexts.</p>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -488,7 +505,12 @@ signals, which can include e.g. data</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</section></div> <!-- / div.lesson-content -->
+</div>
+</div>
+
+
+
+      </div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/hello_world.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -547,9 +569,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/what_is_qmi.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/what_is_qmi.html",
-  "dateCreated": "2025-12-08",
-  "dateModified": "2025-11-11",
-  "datePublished": "2026-01-20"
+  "dateCreated": "2026-01-21",
+  "dateModified": "2026-01-21",
+  "datePublished": "2026-01-21"
 }
 
   </script><script>
