@@ -529,7 +529,7 @@ specific commands to the instruments in context one.</div>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Advantages of this are that instruments can be grouped in logical
 groups in separate contexts and there is therefore no need to make one
@@ -637,7 +637,7 @@ with</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Also a nice info to view now is</p>
 <div class="codewrapper sourceCode" id="cb6">
@@ -704,7 +704,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-one_instrument_control"><p>Content from <a href="one_instrument_control.html">Controlling an instrument</a></p>
 <hr>
-<p>Last updated on 2025-11-11 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/one_instrument_control.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 15 minutes</p>
@@ -742,8 +742,8 @@ commands</li>
 <hr class="half-width">
 <p>In this example we show how to create an instrument object in a
 context. For this, we have a dummy instrument in the QMI instruments to
-illustrate. See also the QMI readthedocs documentation about the dummy
-instrument class call interface. Let’s import the device driver.</p>
+illustrate. See also the QMI readthedocs documentation about the <a href="https://qmi.readthedocs.io/en/stable/build/qmi.instruments.dummy.noisy_sine_generator.html#module-qmi.instruments.dummy.noisy_sine_generator" class="external-link">dummy
+instrument class call interface</a>. Let’s import the device driver.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -820,7 +820,7 @@ instrument class there are none present.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>A bit shorter listing of the attributes of the object, you can
 use</p>
@@ -896,7 +896,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-qmi_configuration"><p>Content from <a href="qmi_configuration.html">Configuring and logging</a></p>
 <hr>
-<p>Last updated on 2025-11-11 |
+<p>Last updated on 2026-01-21 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/qmi_configuration.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
@@ -936,12 +936,12 @@ file</em>. The syntax of this file is very similar to <a href="https://www.json.
 configuration file may contain comments starting with a # character. By
 default, QMI attempts to read the configuration from a file named
 <code>qmi.conf</code> in the home directory (i.e. ‘/home/<user_profile>’
-in Linux or ‘C:&lt;user_name&gt;’ folder on Windows). If you want to use
-a different file name or location, you can specify the configuration
-file path either as the second argument of <code>qmi.start()</code> or
-in the environment variable <code>QMI_CONFIG</code>. Let’s create a
-configuration file <code>qmi.conf</code> at home directory with the
-following contents:</user_profile></p>
+in Linux or ‘C:\Users\&lt;user_name&gt;’ folder on Windows). If you want
+to use a different file name or location, you can specify the
+configuration file path either as the second argument of
+<code>qmi.start()</code> or in the environment variable
+<code>QMI_CONFIG</code>. Let’s create a configuration file
+<code>qmi.conf</code> at home directory with the following contents:</user_profile></p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">JSON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
