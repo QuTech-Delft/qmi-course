@@ -15,7 +15,7 @@ exercises: 10
 
 ## Using QMI to control one instrument
 
-In this example we show how to create an instrument object in a context. For this, we have a dummy instrument in the QMI instruments to illustrate. See also the QMI readthedocs documentation about the dummy instrument class call interface. Let’s import the device driver.
+In this example we show how to create an instrument object in a context. For this, we have a dummy instrument in the QMI instruments to illustrate. See also the QMI readthedocs documentation about the [dummy instrument class call interface](https://qmi.readthedocs.io/en/stable/build/qmi.instruments.dummy.noisy_sine_generator.html#module-qmi.instruments.dummy.noisy_sine_generator). Let’s import the device driver.
 
 ``` python
 from qmi.instruments.dummy.noisy_sine_generator import NoisySineGenerator
