@@ -281,7 +281,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="mypy.html">8. Good coding practises: MyPy</a>
+        <a href="releasing_code.html">8. Releasing and versioning of QMI code</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -290,7 +290,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="releasing_code.html">9. Releasing and versioning of QMI code</a>
+        <a href="mypy.html">9. Good coding practises: MyPy</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -354,7 +354,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Controlling an instrument</h1>
-        <p>Last updated on 2026-01-21 |
+        <p>Last updated on 2026-01-27 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/one_instrument_control.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -465,12 +465,19 @@ have a look at the <a href="https://qmi.readthedocs.io/en/latest/tutorial.html#l
 You see also empty listings “signals” and “constants”, but for this
 instrument class there are none present.</p>
 
-<p>Anyhow, in the printed out listing, a lot of useful methods are
-present and supported through the proxy. Let’s try one:</p>
+<p>Before using any QMI instrument, it needs to be <em>opened</em> (and
+<em>closed</em> afterwards).</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>nsg.get_sample()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>nsg.<span class="bu">open</span>()</span></code></pre>
+</div>
+<p>Now, in the printed out listing, a lot of useful methods are present
+and supported through the proxy. We can try one:</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>nsg.get_sample()</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -480,13 +487,13 @@ present and supported through the proxy. Let’s try one:</p>
 <p>So we get returned one sample of the sine wave at a random moment.
 Let’s do for demonstration purpose a little for loop print out the sine
 wave of our generator “instrument”:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> nsg.get_sample()) <span class="op">+</span> <span class="st">"*"</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    time.sleep(<span class="fl">0.01</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> nsg.get_sample()) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>    time.sleep(<span class="fl">0.01</span>)</span></code></pre>
 </div>
 <p>Nice huh? Let’s then close this context with <code>qmi.stop()</code>
 and exit Python with <code>exit()</code>and prepare for next
@@ -509,6 +516,11 @@ with <code>dir(&lt;instrument_object&gt;)</code>
 </li>
 <li>The returned instrument object is an RPC <em>proxy</em> object of
 the actual class object</li>
+<li>
+<code>&lt;instrument&gt;.open()</code> needs to be called first
+before other RPC methods can be used. Don’t forget to call
+<code>&lt;instrument&gt;.close()</code> afterwards to ensure stable exit
+behaviour.</li>
 </ul></div>
 </div>
 </div>
@@ -576,7 +588,7 @@ any links that you are not going to use.
   "url": "https://QuTech-Delft.github.io/qmi-course/one_instrument_control.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/one_instrument_control.html",
   "dateCreated": "2026-01-21",
-  "dateModified": "2026-01-21",
+  "dateModified": "2026-01-27",
   "datePublished": "2026-01-27"
 }
 

@@ -329,7 +329,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="mypy.html">8. Good coding practises: MyPy</a>
+        <a href="releasing_code.html">8. Releasing and versioning of QMI code</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -341,7 +341,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="releasing_code.html">9. Releasing and versioning of QMI code</a>
+        <a href="mypy.html">9. Good coding practises: MyPy</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -439,6 +439,11 @@ with <code>dir(&lt;instrument_object&gt;)</code>
 </li>
 <li>The returned instrument object is an RPC <em>proxy</em> object of
 the actual class object</li>
+<li>
+<code>&lt;instrument&gt;.open()</code> needs to be called first
+before other RPC methods can be used. Don’t forget to call
+<code>&lt;instrument&gt;.close()</code> afterwards to ensure stable exit
+behaviour.</li>
 </ul></section><section id="qmi_configuration"><h2 class="section-heading"><a href="qmi_configuration.html">Configuring and logging</a></h2>
 <hr class="half-width">
 <ul>
@@ -481,14 +486,6 @@ closed-source QMI</li>
 repository</li>
 <li>You can and are welcome to contribute too! Just follow the
 guidelines</li>
-</ul></section><section id="mypy"><h2 class="section-heading"><a href="mypy.html">Good coding practises: MyPy</a></h2>
-<hr class="half-width">
-<ul>
-<li>MyPy is a tool to check <em>typing</em> in code</li>
-<li>Using <em>typing</em> can reveal coding errors like mis- or double
-use of same variable leading to exceptions in code execution</li>
-<li>A good IDE can help to find typing (and other coding) issues</li>
-<li>Mypy does not check typing for string formatting</li>
 </ul></section><section id="releasing_code"><h2 class="section-heading"><a href="releasing_code.html">Releasing and versioning of QMI code</a></h2>
 <hr class="half-width">
 <ul>
@@ -501,6 +498,14 @@ point of time</li>
 <li>The usual way to install QMI is using Pip and a Pypi
 <em>package</em> of QMI. But, also <em>releases</em> can be downloaded
 and used for the installation.</li>
+</ul></section><section id="mypy"><h2 class="section-heading"><a href="mypy.html">Good coding practises: MyPy</a></h2>
+<hr class="half-width">
+<ul>
+<li>MyPy is a tool to check <em>typing</em> in code</li>
+<li>Using <em>typing</em> can reveal coding errors like mis- or double
+use of same variable leading to exceptions in code execution</li>
+<li>A good IDE can help to find typing (and other coding) issues</li>
+<li>Mypy does not check typing for string formatting</li>
 </ul></section>
 </div>
     </main>
