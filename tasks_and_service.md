@@ -29,6 +29,8 @@ The new configuration will have an extension for the background process:
     "logging": {
         "console_loglevel": "INFO"
     },
+    # Directory to write various log files.
+    "log_dir": "~/qmi_course/log"
     "contexts": {
         # Testing remote instrument access.
         "instr_server": {
