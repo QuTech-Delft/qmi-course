@@ -23,7 +23,7 @@ Many aspects of QMI are configurable via a *configuration file*. The syntax of t
 character. By default, QMI attempts to read the configuration from a file named `qmi.conf` in the home directory (i.e.
 ‘/home/<user_profile>’ in Linux or ‘C:\\Users\\\<user_name\>’ folder on Windows). If you want to use a different file
 name or location, you can specify the configuration file path either as the second argument of `qmi.start()` or in the
-environment variable `QMI_CONFIG`. Let’s create a configuration file `qmi.conf` at home directory with the following
+environment variable `QMI_CONFIG`. Let’s create a configuration file `qmi.conf` at the course directory with the following
 contents:
 
 ``` json
@@ -31,7 +31,9 @@ contents:
     # Log level for messages to the console.
     "logging": {
         "console_loglevel": "INFO"
-    }
+    },
+    # Directory to write various log files.
+    "log_dir": "~/qmi_course/log"
 }
 ```
 

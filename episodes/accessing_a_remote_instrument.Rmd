@@ -23,6 +23,8 @@ QMI makes it easy to access an instrument instance that exists in another Python
     "logging": {
         "console_loglevel": "INFO"
     },
+    # Directory to write various log files.
+    "log_dir": "~/qmi_course/log"
     "contexts": {
         # Testing remote instrument access.
         "instr_server": {
