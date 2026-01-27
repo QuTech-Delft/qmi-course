@@ -66,7 +66,7 @@ _logger = logging.getLogger(__name__)
 
 @dataclass
 class DemoLoopTaskSettings:
-    sample: float
+    sample: float | None
     amplitude: float
 
 

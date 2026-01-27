@@ -77,7 +77,13 @@ help(nsg.get_sample)
 ```
 :::
 
-Anyhow, in the printed out listing, a lot of useful methods are present and supported through the proxy. Let’s try one:
+Before using any QMI instrument, it needs to be _opened_ (and _closed_ afterwards). 
+
+```python
+nsg.open()
+```
+
+Now, in the printed out listing, a lot of useful methods are present and supported through the proxy. We can try one:
 
 ``` python
 nsg.get_sample()
@@ -103,4 +109,5 @@ Nice huh? Let’s then close this context with `qmi.stop()` and exit Python with
 -   Instrument class description can be seen with `help(<instrument_object>)`
 -   Detailed information about the object and variables can be obtained with `dir(<instrument_object>)`
 -   The returned instrument object is an RPC *proxy* object of the actual class object
+-   `<instrument>.open()` needs to be called first before other RPC methods can be used. Don't forget to call `<instrument>.close()` afterwards to ensure stable exit behaviour.
 :::
