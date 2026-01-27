@@ -529,7 +529,7 @@ specific commands to the instruments in context one.</div>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Advantages of this are that instruments can be grouped in logical
 groups in separate contexts and there is therefore no need to make one
@@ -637,7 +637,7 @@ with</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Also a nice info to view now is</p>
 <div class="codewrapper sourceCode" id="cb6">
@@ -908,7 +908,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-qmi_configuration"><p>Content from <a href="qmi_configuration.html">Configuring and logging</a></p>
 <hr>
-<p>Last updated on 2026-01-21 |
+<p>Last updated on 2026-01-27 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/qmi_configuration.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
@@ -953,7 +953,8 @@ to use a different file name or location, you can specify the
 configuration file path either as the second argument of
 <code>qmi.start()</code> or in the environment variable
 <code>QMI_CONFIG</code>. Let’s create a configuration file
-<code>qmi.conf</code> at home directory with the following contents:</user_profile></p>
+<code>qmi.conf</code> at the course directory with the following
+contents:</user_profile></p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">JSON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -961,8 +962,10 @@ configuration file path either as the second argument of
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="er">#</span> <span class="er">Log</span> <span class="er">level</span> <span class="er">for</span> <span class="er">messages</span> <span class="er">to</span> <span class="er">the</span> <span class="er">console.</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">"logging"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>        <span class="dt">"console_loglevel"</span><span class="fu">:</span> <span class="st">"INFO"</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="er">#</span> <span class="er">Directory</span> <span class="er">to</span> <span class="er">write</span> <span class="er">various</span> <span class="er">log</span> <span class="er">files.</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    <span class="dt">"log_dir"</span><span class="fu">:</span> <span class="st">"~/qmi_course/log"</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
 <p>This configuration file changes the log level for messages that
 appear on your terminal. By default, QMI prints only warnings and error
@@ -1063,14 +1066,16 @@ configuration file. The new file will look as follows:</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">"logging"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>        <span class="dt">"console_loglevel"</span><span class="fu">:</span> <span class="st">"INFO"</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="dt">"contexts"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>        <span class="er">#</span> <span class="er">Testing</span> <span class="er">remote</span> <span class="er">instrument</span> <span class="er">access.</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>        <span class="dt">"instr_server"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>            <span class="dt">"host"</span><span class="fu">:</span> <span class="st">"127.0.0.1"</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>            <span class="dt">"tcp_server_port"</span><span class="fu">:</span> <span class="dv">40001</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="er">#</span> <span class="er">Directory</span> <span class="er">to</span> <span class="er">write</span> <span class="er">various</span> <span class="er">log</span> <span class="er">files.</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    <span class="dt">"log_dir"</span><span class="fu">:</span> <span class="st">"~/qmi_course/log"</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="st">"contexts"</span><span class="er">:</span> <span class="fu">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>        <span class="er">#</span> <span class="er">Testing</span> <span class="er">remote</span> <span class="er">instrument</span> <span class="er">access.</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>        <span class="dt">"instr_server"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>            <span class="dt">"host"</span><span class="fu">:</span> <span class="st">"127.0.0.1"</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>            <span class="dt">"tcp_server_port"</span><span class="fu">:</span> <span class="dv">40001</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
 <p>Note that JSON is very picky about the use of commas. There must be a
 comma between multiple elements in the same group, but there may not be
@@ -1208,6 +1213,8 @@ process:</p>
     "logging": {
         "console_loglevel": "INFO"
     },
+    # Directory to write various log files.
+    "log_dir": "~/qmi_course/log"
     "contexts": {
         # Testing remote instrument access.
         "instr_server": {
@@ -1830,7 +1837,7 @@ the issues in the code?</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>The MyPy output tells us the typing of variable <code>debts</code> is
 wrong: it is annotated as a <em>str</em> but the value is a
@@ -1857,7 +1864,7 @@ Why?</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
   <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1897,7 +1904,7 @@ work?</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
   <h3 class="accordion-header" id="headingInstructor3">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <p>Mypy says now <code>Success: no issues found in 1 source file</code>.
 Also, the code will run if the user inputs whole numbers. Notably, the
@@ -1923,7 +1930,7 @@ ValueError: invalid literal for int() with base 10: '30.1'</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>So, the code works, but only with whole numbers and not with
 decimals. To fix this we can use the fact that Python can cast directly

@@ -404,14 +404,16 @@ configuration file. The new file will look as follows:</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">"logging"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>        <span class="dt">"console_loglevel"</span><span class="fu">:</span> <span class="st">"INFO"</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="dt">"contexts"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>        <span class="er">#</span> <span class="er">Testing</span> <span class="er">remote</span> <span class="er">instrument</span> <span class="er">access.</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>        <span class="dt">"instr_server"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>            <span class="dt">"host"</span><span class="fu">:</span> <span class="st">"127.0.0.1"</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>            <span class="dt">"tcp_server_port"</span><span class="fu">:</span> <span class="dv">40001</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="er">#</span> <span class="er">Directory</span> <span class="er">to</span> <span class="er">write</span> <span class="er">various</span> <span class="er">log</span> <span class="er">files.</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    <span class="dt">"log_dir"</span><span class="fu">:</span> <span class="st">"~/qmi_course/log"</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="st">"contexts"</span><span class="er">:</span> <span class="fu">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>        <span class="er">#</span> <span class="er">Testing</span> <span class="er">remote</span> <span class="er">instrument</span> <span class="er">access.</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>        <span class="dt">"instr_server"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>            <span class="dt">"host"</span><span class="fu">:</span> <span class="st">"127.0.0.1"</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>            <span class="dt">"tcp_server_port"</span><span class="fu">:</span> <span class="dv">40001</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
 </div>
 <p>Note that JSON is very picky about the use of commas. There must be a
 comma between multiple elements in the same group, but there may not be
