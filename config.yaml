@@ -74,8 +74,8 @@ episodes:
 - accessing_a_remote_instrument.Rmd
 - tasks_and_service.Rmd
 - open-source_vs_internal.Rmd
-- mypy.Rmd
 - releasing_code.Rmd
+- mypy.Rmd
 
 # Information for Learners
 learners:
