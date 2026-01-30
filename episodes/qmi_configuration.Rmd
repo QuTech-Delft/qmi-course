@@ -31,6 +31,7 @@ contents:
     # Log level for messages to the console.
     "logging": {
         "console_loglevel": "INFO"
+        # "logfile": "log.log"
     },
     # Directory to write various log files.
     "log_dir": "~/qmi_course/log"

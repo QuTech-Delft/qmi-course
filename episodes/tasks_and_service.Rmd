@@ -28,9 +28,10 @@ The new configuration will have an extension for the background process:
     # Log level for messages to the console.
     "logging": {
         "console_loglevel": "INFO"
+        # "logfile": "log.log"
     },
     # Directory to write various log files.
-    "log_dir": "~/qmi_course/log"
+    "log_dir": "~/qmi_course/log",
     "contexts": {
         # Testing remote instrument access.
         "instr_server": {
@@ -120,7 +121,7 @@ def main():
         with qmi.make_instrument("nsg", NoisySineGenerator) as nsg:
             with qmi.make_task("demo_task", DemoRpcControlTask, task_runner=CustomRpcControlTaskRunner) as task:
                 _logger.info("the task has been started")
-                while not ctx.shutdown_requested():
+                while task.is_running() and not ctx.shutdown_requested():
                     sample = nsg.get_sample()
                     amplitude = nsg.get_amplitude()
                     print(" " * int(40.0 + 0.25 * sample) + "*")

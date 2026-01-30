@@ -15,7 +15,7 @@ exercises: 0
 
 ## What is QMI?
 
-QMI is a Python 3 framework for controlling laboratory equipment. It is suitable for anything ranging from one-off scientific experiments to robust operational setups.
+**QMI**, **Q**uantum **M**easurement **I**nfrastructure, is a Python 3 framework for controlling laboratory equipment. It is suitable for anything ranging from one-off scientific experiments to robust operational setups.
 
 QMI is developed by [QuTech](https://www.qutech.nl/) to support advanced physics experiments involving quantum bits. However, other than its name and original purpose, the_re is nothing specifically *quantum* about QMI — it is potentially useful in any environment where monitoring and control of measurement equipment is needed. It is also multi-platform. At QuTech, QMI is regularly used in both Linux and Windows, and running QMI on macOS is also possible.
 
