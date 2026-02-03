@@ -75,7 +75,6 @@ episodes:
 - tasks_and_service.Rmd
 - open-source_vs_internal.Rmd
 - releasing_code.Rmd
-- mypy.Rmd
 
 # Information for Learners
 learners:
