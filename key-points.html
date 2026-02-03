@@ -337,18 +337,6 @@
 </div>
 <!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush10">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading10">
-        <a href="mypy.html">9. Good coding practises: MyPy</a>
-    </div>
-<!--/div.accordion-header-->
-
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
                 </div>
               </div>
             </div>
@@ -433,7 +421,7 @@ signals, which can include e.g. data</li>
 <code>help(&lt;instrument_object&gt;)</code>
 </li>
 <li>Detailed information about the object and variables can be obtained
-with <code>dir(&lt;instrument_object&gt;)</code>
+with <code>help(&lt;instrument_object&gt;)</code>
 </li>
 <li>The returned instrument object is an RPC <em>proxy</em> object of
 the actual class object</li>
@@ -467,7 +455,7 @@ and the user’s home directory</li>
 <ul>
 <li>Also QMI tasks need to be defined in <code>qmi.conf</code>. To
 enable running the task a a service, parameters “enabled” and
-“program_module” need to be define.</li>
+“program_module” need to be defined.</li>
 <li>A task consists of a <code>QMI_Task</code> class and a
 <code>QMI_TaskRunner</code> class. The latter can be customized to
 include RPC methods in tasks.</li>
@@ -496,14 +484,6 @@ point of time</li>
 <li>The usual way to install QMI is using Pip and a Pypi
 <em>package</em> of QMI. But, also <em>releases</em> can be downloaded
 and used for the installation.</li>
-</ul></section><section id="mypy"><h2 class="section-heading"><a href="mypy.html">Good coding practises: MyPy</a></h2>
-<hr class="half-width">
-<ul>
-<li>MyPy is a tool to check <em>typing</em> in code</li>
-<li>Using <em>typing</em> can reveal coding errors like mis- or double
-use of same variable leading to exceptions in code execution</li>
-<li>A good IDE can help to find typing (and other coding) issues</li>
-<li>Mypy does not check typing for string formatting</li>
 </ul></section>
 </div>
     </main>
