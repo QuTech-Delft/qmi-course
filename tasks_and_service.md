@@ -15,9 +15,11 @@ exercises: 20
 -   Learn how to make a background 'service' process with `qmi_proc`
 :::
 
-## Setting up a task and a “service”
+## Example: QMI service process to control amplitude of sine wave
 
-Next, we want to demonstrate QMI tasks and how they can be used in setting up services, i.e. tasks running as background processes, on your PC. This needs now somewhat more complex configuration of the `qmi.conf`, but nothing scary, I promise.
+Next, we want to demonstrate QMI tasks and how they can be used in setting up services, i.e. tasks running as background processes, on your PC. As an example we will create a task which will constrain the sine wave amplitude to be around 10 (of arbitrary units) and run this task as a background process - a "service" in QMI slang.
+
+This needs now somewhat more complex configuration of the `qmi.conf`, but nothing scary, I promise.
 
 ### Configuration file
 
@@ -162,7 +164,7 @@ There are plenty of other things going on on this example, like the use of a cus
 Further, the amplitude control through the task settings actually utilizes the QMI’s signalling feature. For more details on this, you can read into [signalling](https://qmi.readthedocs.io/en/latest/design.html#signalling) and look at API of [qmi.core.task](https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#module-qmi.core.task) in the documentation.
 
 ::: keypoints
--   Also QMI tasks need to be defined in `qmi.conf`. To enable running the task a a service, parameters "enabled" and "program_module" need to be define.
+-   Also QMI tasks need to be defined in `qmi.conf`. To enable running the task a a service, parameters "enabled" and "program_module" need to be defined.
 -   A task consists of a `QMI_Task` class and a `QMI_TaskRunner` class. The latter can be customized to include RPC methods in tasks.
 -   `qmi_proc` is an executable created while installing QMI. It can be used to start, stop and checking status of (local) QMI tasks running as background processes.
 :::

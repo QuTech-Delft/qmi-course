@@ -17,7 +17,7 @@ exercises: 10
 
 QMI makes it easy to access an instrument instance that exists in another Python program. The programs may even run on different computers. The Python program that contains the instrument instance must be accessible via the network. This can be achieved by extending the QMI configuration file. The new file will look as follows:
 
-``` json
+```json
 {
     # Log level for messages to the console.
     "logging": {
@@ -25,7 +25,7 @@ QMI makes it easy to access an instrument instance that exists in another Python
         # "logfile": "log.log"
     },
     # Directory to write various log files.
-    "log_dir": "~/qmi_course/log"
+    "log_dir": "~/qmi_course/log",
     "contexts": {
         # Testing remote instrument access.
         "instr_server": {

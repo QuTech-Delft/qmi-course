@@ -35,7 +35,7 @@ The second main feature of QMI is its Remote Procedure Call (RPC) protocol that 
 
 ## QMI signals
 
-The third main feature to mention is the QMI signals. The device drivers and tasks can be equipped with signal publishers and receivers. These can be used e.g. to send simple triggering signals between tasks or devices, or to send data to some external party. They can become handy with tasks that need to wait for some event to occur before performing some specific action, and thus wait to receive a signal from a publisher. Or if some data needs to be (periodically) saved to a database, like [InfluxDB](https://www.influxdata.com/) or our own [Quantum Data Lake](https://qutech-data-lake.gitlab.io/docs/latest/), for later analysis. The signals have been also used for remote live monitoring by sending data to a [Grafana](https://grafana.com/docs/grafana/latest/) server.
+The third main feature to mention is the QMI signals. The device drivers and tasks can be equipped with signal publishers and receivers. These can be used e.g. to send simple triggering signals between tasks or devices, or to send data to some external party. They can become handy with tasks that need to wait for some event to occur before performing some specific action, and thus wait to receive a signal from a publisher. Or if some data needs to be (periodically) saved to a database, like [InfluxDB](https://www.influxdata.com/) or our own [QuTech Data Lake](https://qutech-data-lake.gitlab.io/docs/latest/), for later analysis. The signals have been also used for remote live monitoring by sending data to a [Grafana](https://grafana.com/docs/grafana/latest/) server.
 
 ## QMI contexts
 
