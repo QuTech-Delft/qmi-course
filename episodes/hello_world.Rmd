@@ -36,11 +36,15 @@ qmi.start("hello_world", config_file=None)
 Now, your first QMI context has been started. You can verify this with
 
 ``` python
-qmi.context()
+qmi.show_contexts()
 ```
 
 ``` output
-QMI_context(name='hello_world')
+
+address         type
+--------------  -----------------
+hello_world.$context  _ContextRpcObject
+--------------  -----------------
 ```
 
 ::: instructor

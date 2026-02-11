@@ -36,8 +36,6 @@ QMI makes it easy to access an instrument instance that exists in another Python
 }
 ```
 
-Note that JSON is very picky about the use of commas. There must be a comma between multiple elements in the same group, but there may not be a comma after the last element of a group.
-
 Start the instrument server with the following lines:
 
 ``` python
