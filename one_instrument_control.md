@@ -102,7 +102,7 @@ for i in range(1000):
     time.sleep(0.01)
 ```
 
-Nice huh? Let’s then close this context with `qmi.stop()` and exit Python with `exit()`and prepare for next example.
+Nice huh? Let’s then close the instrument with `nsg.close()`, stop this context with `qmi.stop()` and exit Python with `exit()` and prepare for next example.
 
 ::: keypoints
 -   Instruments can be added into contexts with `<instrument_object> = qmi.make_instrument("<name>", <ClassName>, <possible_extra_parameters>)`
