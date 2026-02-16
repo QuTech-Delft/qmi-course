@@ -345,7 +345,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Create a task and a 'service'</h1>
-        <p>Last updated on 2026-02-03 |
+        <p>Last updated on 2026-02-16 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/tasks_and_service.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -390,19 +390,127 @@ setting up services, i.e. tasks running as background processes, on your
 PC. As an example we will create a task which will constrain the sine
 wave amplitude to be around 10 (of arbitrary units) and run this task as
 a background process - a “service” in QMI slang.</p>
-<p>This needs now somewhat more complex configuration of the
-<code>qmi.conf</code>, but nothing scary, I promise.</p>
+<div class="section level3">
+<h3 id="demo-task">Demo task<a class="anchor" aria-label="anchor" href="#demo-task"></a></h3>
+<p>To demonstrate a custom task, we need to create one. Make a new
+Python module inside the module path for your project. If you don’t have
+a module path yet, just create a file <code>demo_task.py</code> in the
+current directory:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> qmi</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">from</span> qmi.core.rpc <span class="im">import</span> rpc_method</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> qmi.core.task <span class="im">import</span> QMI_Task, QMI_TaskRunner</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># Global variable holding the logger for this module.</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>_logger <span class="op">=</span> logging.getLogger(<span class="va">__name__</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">@dataclass</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="kw">class</span> DemoLoopTaskSettings:</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    sample: <span class="bu">float</span> <span class="op">|</span> <span class="va">None</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>    amplitude: <span class="bu">float</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="kw">class</span> CustomRpcControlTaskRunner(QMI_TaskRunner):</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    <span class="at">@rpc_method</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    <span class="kw">def</span> set_amplitude(<span class="va">self</span>, amplitude: <span class="bu">float</span>):</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>        settings <span class="op">=</span> <span class="va">self</span>.get_settings()</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>        settings.amplitude <span class="op">=</span> amplitude</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>        <span class="va">self</span>.set_settings(settings)</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="kw">class</span> DemoRpcControlTask(QMI_Task):</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, task_runner, name):</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(task_runner, name)</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>        <span class="va">self</span>.settings <span class="op">=</span> DemoLoopTaskSettings(amplitude<span class="op">=</span><span class="fl">100.0</span>, sample<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    <span class="kw">def</span> run(<span class="va">self</span>):</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>        _logger.info(<span class="st">"starting the background task"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>        nsg <span class="op">=</span> qmi.get_instrument(<span class="st">"proc_demo.nsg"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>        <span class="cf">while</span> <span class="kw">not</span> <span class="va">self</span>.stop_requested():</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>            <span class="va">self</span>.update_settings()</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>            nsg.set_amplitude(<span class="va">self</span>.settings.amplitude)</span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>            <span class="va">self</span>.sleep(<span class="fl">0.01</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>        _logger.info(<span class="st">"stopping the background task"</span>)</span></code></pre>
+</div>
+<p>Note that we define class <code>DemoRpcControlTask</code> with one
+special method named <code>run()</code>. This method contains the code
+that makes up the background task. In this simple example, the task
+simply loops about 100 times per second, reading settings from the sine
+generator and adjusting its amplitude. The task uses the function <a href="https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#qmi.core.task.QMI_Task.sleep" class="external-link"><code>qmi.core.task.QMI_Task.sleep()</code></a>
+to sleep instead of <code>time.sleep()</code>. The advantage of this is
+that it stops waiting immediately when it is necessary to stop the
+task.</p>
+</div>
+<div class="section level3">
+<h3 id="task-runner-script">Task runner script<a class="anchor" aria-label="anchor" href="#task-runner-script"></a></h3>
+<p>Now we create the program starting up and running the task. Make
+<code>task_demo.py</code> file with the following contents:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="im">import</span> qmi</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="im">from</span> qmi.utils.context_managers <span class="im">import</span> start_stop</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="im">from</span> qmi.instruments.dummy.noisy_sine_generator <span class="im">import</span> NoisySineGenerator</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="im">from</span> demo_task <span class="im">import</span> DemoRpcControlTask, CustomRpcControlTaskRunner</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co"># Global variable holding the logger for this module.</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>_logger <span class="op">=</span> logging.getLogger(<span class="va">__name__</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="cf">with</span> start_stop(qmi, <span class="st">"proc_demo"</span>, config_file<span class="op">=</span><span class="st">"./qmi.conf"</span>):</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>        ctx <span class="op">=</span> qmi.context()</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>        <span class="cf">with</span> qmi.make_instrument(<span class="st">"nsg"</span>, NoisySineGenerator) <span class="im">as</span> nsg:</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>            <span class="cf">with</span> qmi.make_task(<span class="st">"demo_task"</span>, DemoRpcControlTask, task_runner<span class="op">=</span>CustomRpcControlTaskRunner) <span class="im">as</span> task:</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>                _logger.info(<span class="st">"the task has been started"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>                <span class="cf">while</span> task.is_running() <span class="kw">and</span> <span class="kw">not</span> ctx.shutdown_requested():</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>                    sample <span class="op">=</span> nsg.get_sample()</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>                    amplitude <span class="op">=</span> nsg.get_amplitude()</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> sample) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>                    <span class="cf">if</span> <span class="bu">abs</span>(sample) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">0.99</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">1.01</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>                    time.sleep(<span class="fl">0.01</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>            _logger.info(<span class="st">"the task has been stopped"</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>    main()</span></code></pre>
+</div>
+<p>This program now takes care of creating the instrument
+<code>nsg</code> and followingly starting up the task, using the
+<code>with</code> context managers. The script loops about hundred times
+per second, and at each iteration prints out the latest sine wave point
+(*), and controls the <code>DemoRpcControlTask</code>’s amplitude. In
+practice, we are now suppressing the sine wave by continuously checking
+its sample value and setting the amplitude so that the sample value
+would stay as close to 10 as possible.</p>
+</div>
 <div class="section level3">
 <h3 id="configuration-file">Configuration file<a class="anchor" aria-label="anchor" href="#configuration-file"></a></h3>
-<p>The new configuration will have an extension for the background
-process:</p>
+<p>The task needs now somewhat more complex configuration of the
+<code>qmi.conf</code>, but nothing scary, I promise. The new
+configuration will now have a new entry for the background process
+<code>proc_demo</code>:</p>
 <pre><code>{
     # Log level for messages to the console.
     "logging": {
         "console_loglevel": "INFO"
         # "logfile": "log.log"
     },
-    # Directory to write various log files.
+    # Directory to write main log file.
     "log_dir": "~/qmi_course/log",
     "contexts": {
         # Testing remote instrument access.
@@ -417,123 +525,19 @@ process:</p>
             "enabled": true,
             "program_module": "task_demo"
         }
+    },
+    "process_management": {
+        "output_dir": "~/tmp/log"
     }
 }</code></pre>
 <p>The ‘”enabled”: true’ parameter makes it possible to start the
 context via QMI process management, and ‘”program_module”: “task_demo”’
 line tells the QMI to start a module named ‘task_demo.py’ for this
-process. We’ll create it in a qubit, but first let’s define a task we
-want to make the service for.</p>
+process. We’ll start it in a qubit.</p>
 </div>
 <div class="section level3">
-<h3 id="demo-task">Demo task<a class="anchor" aria-label="anchor" href="#demo-task"></a></h3>
-<p>To demonstrate a custom task, we need to create one. Make a new
-Python module inside the module path for your project. If you don’t have
-a module path yet, just create a file <code>demo_task.py</code> in the
-current directory:</p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">from</span> dataclasses <span class="im">import</span> dataclass</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> logging</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="im">import</span> qmi</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="im">from</span> qmi.core.rpc <span class="im">import</span> rpc_method</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="im">from</span> qmi.core.task <span class="im">import</span> QMI_Task, QMI_TaskRunner</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co"># Global variable holding the logger for this module.</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>_logger <span class="op">=</span> logging.getLogger(<span class="va">__name__</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">@dataclass</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="kw">class</span> DemoLoopTaskSettings:</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    sample: <span class="bu">float</span> <span class="op">|</span> <span class="va">None</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    amplitude: <span class="bu">float</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="kw">class</span> CustomRpcControlTaskRunner(QMI_TaskRunner):</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="at">@rpc_method</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="kw">def</span> set_amplitude(<span class="va">self</span>, amplitude: <span class="bu">float</span>):</span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>        settings <span class="op">=</span> <span class="va">self</span>.get_settings()</span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>        settings.amplitude <span class="op">=</span> amplitude</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>        <span class="va">self</span>.set_settings(settings)</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="kw">class</span> DemoRpcControlTask(QMI_Task):</span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, task_runner, name):</span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(task_runner, name)</span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>        <span class="va">self</span>.settings <span class="op">=</span> DemoLoopTaskSettings(amplitude<span class="op">=</span><span class="fl">100.0</span>, sample<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>    <span class="kw">def</span> run(<span class="va">self</span>):</span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>        _logger.info(<span class="st">"starting the background task"</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>        nsg <span class="op">=</span> qmi.get_instrument(<span class="st">"proc_demo.nsg"</span>)</span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>        <span class="cf">while</span> <span class="kw">not</span> <span class="va">self</span>.stop_requested():</span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>            <span class="va">self</span>.update_settings()</span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>            nsg.set_amplitude(<span class="va">self</span>.settings.amplitude)</span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>            <span class="va">self</span>.sleep(<span class="fl">0.01</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>        _logger.info(<span class="st">"stopping the background task"</span>)</span></code></pre>
-</div>
-<p>Note that we define class <code>DemoRpcControlTask</code> with one
-special method named <code>run()</code>. This method contains the code
-that makes up the background task. In this simple example, the task
-simply loops once per second, reading settings from the sine generator
-and adjusting its amplitude. The task uses the function <a href="https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#qmi.core.task.QMI_Task.sleep" class="external-link"><code>qmi.core.task.QMI_Task.sleep()</code></a>
-to sleep instead of <code>time.sleep()</code>. The advantage of this is
-that it stops waiting immediately when it is necessary to stop the
-task.</p>
-</div>
-<div class="section level3">
-<h3 id="task-runner-script">Task runner script<a class="anchor" aria-label="anchor" href="#task-runner-script"></a></h3>
-<p>Now we still miss the program starting up and running the task. Make
-the <code>task_demo.py</code> file with the following contents:</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> logging</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="im">import</span> qmi</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="im">from</span> qmi.utils.context_managers <span class="im">import</span> start_stop</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="im">from</span> qmi.instruments.dummy.noisy_sine_generator <span class="im">import</span> NoisySineGenerator</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="im">from</span> demo_task <span class="im">import</span> DemoRpcControlTask, CustomRpcControlTaskRunner</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># Global variable holding the logger for this module.</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>_logger <span class="op">=</span> logging.getLogger(<span class="va">__name__</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="kw">def</span> main():</span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>    <span class="cf">with</span> start_stop(qmi, <span class="st">"proc_demo"</span>, config_file<span class="op">=</span><span class="st">"./qmi.conf"</span>):</span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>        ctx <span class="op">=</span> qmi.context()</span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>        <span class="cf">with</span> qmi.make_instrument(<span class="st">"nsg"</span>, NoisySineGenerator) <span class="im">as</span> nsg:</span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>            <span class="cf">with</span> qmi.make_task(<span class="st">"demo_task"</span>, DemoRpcControlTask, task_runner<span class="op">=</span>CustomRpcControlTaskRunner) <span class="im">as</span> task:</span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>                _logger.info(<span class="st">"the task has been started"</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>                <span class="cf">while</span> task.is_running() <span class="kw">and</span> <span class="kw">not</span> ctx.shutdown_requested():</span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>                    sample <span class="op">=</span> nsg.get_sample()</span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>                    amplitude <span class="op">=</span> nsg.get_amplitude()</span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> sample) <span class="op">+</span> <span class="st">"*"</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>                    <span class="cf">if</span> <span class="bu">abs</span>(sample) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">0.9</span>)</span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">1.1</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>                    time.sleep(<span class="fl">0.01</span>)</span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>            _logger.info(<span class="st">"the task has been stopped"</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>    main()</span></code></pre>
-</div>
-<p>This program now takes care of creating the instrument
-<code>nsg</code> and followingly starting up the task. The script also
-loops about once per second, and at each iteration prints out the latest
-sample and amplitude values, and controls the
-<code>DemoRpcControlTask</code>’s amplitude to keep the sample value at
-around 10. In practice, we are now trying to suppress the sine wave as
-much as possible by continuously controlling its amplitude.</p>
-</div>
-<div class="section level3">
-<h3 id="running-the-task-as-a-service">Running the task as a service<a class="anchor" aria-label="anchor" href="#running-the-task-as-a-service"></a></h3>
+<h3 id="running-the-task-as-a-service-with-qmi_proc">Running the task as a service with <code>qmi_proc</code>
+<a class="anchor" aria-label="anchor" href="#running-the-task-as-a-service-with-qmi_proc"></a></h3>
 <p>We can now start the service using <code>qmi_proc</code> program.
 <code>qmi_proc</code> is a command-line executable created when
 installing QMI, see also documentation about <a href="https://qmi.readthedocs.io/en/latest/tutorial.html%23managing-background-processes" class="external-link">managing
@@ -551,6 +555,27 @@ Opening this file, after a few info statements, you’ll see again the
 sine wave starting, like in the earlier example. Only now, it’ll quickly
 loose amplitude and become a very slightly wavy sine line. If you see
 that to happen, the service did it’s job.</time></date></p>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>You might want to try to manually disturb the service to confirm that
+the suppression of the sine wave really works. For that, re-start the
+service again. Now, in another terminal, start up QMI (using the same
+<code>qmi.conf</code> file) and connect to the task’s QMI context and
+use QMI’s <code>get_task</code> command to get a proxy for the task.
+From this proxy, use the custom RPC method <code>set_amplitude</code> to
+crank up the amplitude. Then see the task’s log file what happened.</p>
+<p>BONUS QUESTION:: You have to use floating point values for the
+<code>set_amplitude</code> command. An integer value (like 1000) will
+crash the task. Why is that?</p>
+</div>
+</div>
+</div>
 <p>There are plenty of other things going on on this example, like the
 use of a custom <code>QMI_TaskRunner</code> with an RPC method added
 into the runner. We also make use of file-specific loggers for logging.
@@ -648,8 +673,8 @@ any links that you are not going to use.
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/tasks_and_service.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/tasks_and_service.html",
   "dateCreated": "2026-01-21",
-  "dateModified": "2026-02-03",
-  "datePublished": "2026-02-10"
+  "dateModified": "2026-02-16",
+  "datePublished": "2026-02-16"
 }
 
   </script><script>

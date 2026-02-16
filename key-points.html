@@ -434,16 +434,23 @@ behaviour.</li>
 <hr class="half-width">
 <ul>
 <li>
-<code>qmi.conf</code> has a JSON-like structure</li>
+<code>qmi.conf</code> has a JSON-like structure, but allows comments
+starting with ‘#’</li>
+<li>
+<code>qmi.conf</code> location can be given as an argument to
+<code>qmi.start</code> by setting <code>QMI_CONFIG</code> environment
+variable</li>
 <li>Log levels are set within “logging” keyword section</li>
 <li>Default name and location of the log file are <code>qmi.log</code>
 and the user’s home directory</li>
+<li>These can be changed using “logfile” and “log_dir” options in
+<code>qmi.conf</code>, but also by setting <code>QMI_HOME</code>
+environment variable.</li>
 </ul></section><section id="accessing_a_remote_instrument"><h2 class="section-heading"><a href="accessing_a_remote_instrument.html">Accessing an instrument remotely</a></h2>
 <hr class="half-width">
 <ul>
 <li>Instruments to be accessed remotely should be defined in
-<code>qmi.conf</code>
-</li>
+<code>qmi.conf</code> - both on the ‘server’ and ‘client’ side</li>
 <li>Connect to another QMI context using
 <code>qmi.context().connect_to_peer("&lt;context_name&gt;", peer_address="&lt;ho.st.i.p:port&gt;")</code>
 </li>
@@ -534,8 +541,8 @@ and used for the installation.</li>
   "url": "https://QuTech-Delft.github.io/qmi-course/key-points.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/key-points.html",
   "dateCreated": "2026-01-21",
-  "dateModified": "2026-02-10",
-  "datePublished": "2026-02-10"
+  "dateModified": "2026-02-16",
+  "datePublished": "2026-02-16"
 }
 
   </script><script>
