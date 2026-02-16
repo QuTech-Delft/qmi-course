@@ -33,7 +33,7 @@ following contents:
         "console_loglevel": "INFO"
         # "logfile": "log.log"
     }
-    # Directory to write various log files.
+    # Directory to write main log file.
     # "log_dir": "~/qmi_course/log"
 }
 ```

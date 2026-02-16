@@ -19,40 +19,6 @@ exercises: 20
 
 Next, we want to demonstrate QMI tasks and how they can be used in setting up services, i.e. tasks running as background processes, on your PC. As an example we will create a task which will constrain the sine wave amplitude to be around 10 (of arbitrary units) and run this task as a background process - a "service" in QMI slang.
 
-This needs now somewhat more complex configuration of the `qmi.conf`, but nothing scary, I promise.
-
-### Configuration file
-
-The new configuration will have an extension for the background process:
-
-```         
-{
-    # Log level for messages to the console.
-    "logging": {
-        "console_loglevel": "INFO"
-        # "logfile": "log.log"
-    },
-    # Directory to write various log files.
-    "log_dir": "~/qmi_course/log",
-    "contexts": {
-        # Testing remote instrument access.
-        "instr_server": {
-            "host": "127.0.0.1",
-            "tcp_server_port": 40001
-        },
-        # Testing process management.
-        "proc_demo": {
-            "host": "127.0.0.1",
-            "tcp_server_port": 40002,
-            "enabled": true,
-            "program_module": "task_demo"
-        }
-    }
-}
-```
-
-The ‘”enabled”: true’ parameter makes it possible to start the context via QMI process management, and ‘”program_module”: “task_demo”’ line tells the QMI to start a module named ‘task_demo.py’ for this process. We’ll create it in a qubit, but first let’s define a task we want to make the service for.
-
 ### Demo task
 
 To demonstrate a custom task, we need to create one. Make a new Python module inside the module path for your project. If you don’t have a module path yet, just create a file `demo_task.py` in the current directory:
@@ -99,11 +65,11 @@ class DemoRpcControlTask(QMI_Task):
         _logger.info("stopping the background task")
 ```
 
-Note that we define class `DemoRpcControlTask` with one special method named `run()`. This method contains the code that makes up the background task. In this simple example, the task simply loops once per second, reading settings from the sine generator and adjusting its amplitude. The task uses the function [`qmi.core.task.QMI_Task.sleep()`](https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#qmi.core.task.QMI_Task.sleep) to sleep instead of `time.sleep()`. The advantage of this is that it stops waiting immediately when it is necessary to stop the task.
+Note that we define class `DemoRpcControlTask` with one special method named `run()`. This method contains the code that makes up the background task. In this simple example, the task simply loops about 100 times per second, reading settings from the sine generator and adjusting its amplitude. The task uses the function [`qmi.core.task.QMI_Task.sleep()`](https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#qmi.core.task.QMI_Task.sleep) to sleep instead of `time.sleep()`. The advantage of this is that it stops waiting immediately when it is necessary to stop the task.
 
 ### Task runner script
 
-Now we still miss the program starting up and running the task. Make the `task_demo.py` file with the following contents:
+Now we create the program starting up and running the task. Make `task_demo.py` file with the following contents:
 
 ``` python
 import logging
@@ -128,9 +94,9 @@ def main():
                     amplitude = nsg.get_amplitude()
                     print(" " * int(40.0 + 0.25 * sample) + "*")
                     if abs(sample) > 10:
-                        task.set_amplitude(amplitude * 0.9)
+                        task.set_amplitude(amplitude * 0.99)
                     else:
-                        task.set_amplitude(amplitude * 1.1)
+                        task.set_amplitude(amplitude * 1.01)
 
                     time.sleep(0.01)
 
@@ -141,9 +107,44 @@ if __name__ == "__main__":
     main()
 ```
 
-This program now takes care of creating the instrument `nsg` and followingly starting up the task. The script also loops about once per second, and at each iteration prints out the latest sample and amplitude values, and controls the `DemoRpcControlTask`’s amplitude to keep the sample value at around 10. In practice, we are now trying to suppress the sine wave as much as possible by continuously controlling its amplitude.
+This program now takes care of creating the instrument `nsg` and followingly starting up the task, using the `with` context managers. The script loops about hundred times per second, and at each iteration prints out the latest sine wave point (\*), and controls the `DemoRpcControlTask`’s amplitude. In practice, we are now suppressing the sine wave by continuously checking its sample value and setting the amplitude so that the sample value would stay as close to 10 as possible.
 
-### Running the task as a service
+### Configuration file
+
+The task needs now somewhat more complex configuration of the `qmi.conf`, but nothing scary, I promise. The new configuration will now have a new entry for the background process `proc_demo`:
+
+```         
+{
+    # Log level for messages to the console.
+    "logging": {
+        "console_loglevel": "INFO"
+        # "logfile": "log.log"
+    },
+    # Directory to write main log file.
+    "log_dir": "~/qmi_course/log",
+    "contexts": {
+        # Testing remote instrument access.
+        "instr_server": {
+            "host": "127.0.0.1",
+            "tcp_server_port": 40001
+        },
+        # Testing process management.
+        "proc_demo": {
+            "host": "127.0.0.1",
+            "tcp_server_port": 40002,
+            "enabled": true,
+            "program_module": "task_demo"
+        }
+    },
+    "process_management": {
+        "output_dir": "~/tmp/log"
+    }
+}
+```
+
+The ‘”enabled”: true’ parameter makes it possible to start the context via QMI process management, and ‘”program_module”: “task_demo”’ line tells the QMI to start a module named ‘task_demo.py’ for this process. We’ll start it in a qubit.
+
+### Running the task as a service with `qmi_proc`
 
 We can now start the service using `qmi_proc` program. `qmi_proc` is a command-line executable created when installing QMI, see also documentation about [managing background processes](https://qmi.readthedocs.io/en/latest/tutorial.html%23managing-background-processes). It can be used to start, stop and inquire status of services. To start the “proc_demo” service, type the following (the “--config ./qmi.conf” is not necessary if the `qmi.conf` is in the default path).
 
@@ -158,6 +159,12 @@ qmi_proc stop proc_demo --config ./qmi.conf
 ```
 
 The use of the `qmi_proc` creates extra output files for services. One was now created also for “proc_demo” service. You can find it in the default location with name “proc_demo\_<date>\_<time>.out”. Opening this file, after a few info statements, you’ll see again the sine wave starting, like in the earlier example. Only now, it’ll quickly loose amplitude and become a very slightly wavy sine line. If you see that to happen, the service did it’s job.
+
+::: challenge
+You might want to try to manually disturb the service to confirm that the suppression of the sine wave really works. For that, re-start the service again. Now, in another terminal, start up QMI (using the same `qmi.conf` file) and connect to the task's QMI context and use QMI's `get_task` command to get a proxy for the task. From this proxy, use the custom RPC method `set_amplitude` to crank up the amplitude. Then see the task's log file what happened.
+
+BONUS QUESTION:: You have to use floating point values for the `set_amplitude` command. An integer value (like 1000) will crash the task. Why is that?
+:::
 
 There are plenty of other things going on on this example, like the use of a custom `QMI_TaskRunner` with an RPC method added into the runner. We also make use of file-specific loggers for logging. For more information about QMI tasks see the [tutorial](https://qmi.readthedocs.io/en/latest/tutorial.html#making-a-qmi-task), and about logging the [Design Overview](https://qmi.readthedocs.io/en/latest/design.html#logging) in documentation. There are also other examples of tasks in the `examples` folder of the QMI repository.
 
