@@ -41,7 +41,13 @@ cd qmi_course
 
 ``` shell
 python -m venv venv
+# Linux / MacOS Terminal
 source venv/bin/activate
+# Git bash on Windows
+source venv/Scripts/activate
+# Powershell, with possibly requred step to enable running scripts
+set-executionpolicy RemoteSigned -Scope CurrentUser
+.\venv\Scripts\Activate.ps1
 ```
 
 -   Install open-source QMI with Pip

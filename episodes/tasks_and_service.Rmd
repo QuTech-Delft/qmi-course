@@ -87,8 +87,10 @@ def main():
     with start_stop(qmi, "proc_demo", config_file="./qmi.conf"):
         ctx = qmi.context()
         with qmi.make_instrument("nsg", NoisySineGenerator) as nsg:
-            with qmi.make_task("demo_task", DemoRpcControlTask, task_runner=CustomRpcControlTaskRunner) as task:
-                _logger.info("the task has been started")
+            task = qmi.make_task("demo_task", DemoRpcControlTask, task_runner=CustomRpcControlTaskRunner)
+            task.start()
+            _logger.info("the task has been started")
+            try:
                 while task.is_running() and not ctx.shutdown_requested():
                     sample = nsg.get_sample()
                     amplitude = nsg.get_amplitude()
@@ -100,7 +102,13 @@ def main():
 
                     time.sleep(0.01)
 
-            _logger.info("the task has been stopped")
+                task.stop()
+
+            except:
+                task.stop()
+            finally:
+                _logger.info("the task has been stopped")
+                task.join()
 
 
 if __name__ == "__main__":
@@ -137,7 +145,7 @@ The task needs now somewhat more complex configuration of the `qmi.conf`, but no
         }
     },
     "process_management": {
-        "output_dir": "~/tmp/log"
+        "output_dir": "~/qmi_course/log"
     }
 }
 ```
@@ -166,12 +174,38 @@ You might want to try to manually disturb the service to confirm that the suppre
 BONUS QUESTION:: You have to use floating point values for the `set_amplitude` command. An integer value (like 1000) will crash the task. Why is that?
 :::
 
-There are plenty of other things going on on this example, like the use of a custom `QMI_TaskRunner` with an RPC method added into the runner. We also make use of file-specific loggers for logging. For more information about QMI tasks see the [tutorial](https://qmi.readthedocs.io/en/latest/tutorial.html#making-a-qmi-task), and about logging the [Design Overview](https://qmi.readthedocs.io/en/latest/design.html#logging) in documentation. There are also other examples of tasks in the `examples` folder of the QMI repository.
+There are plenty of other things going on on this example, like the use of a custom `QMI_TaskRunner` with an RPC method added into the runner. We also make use of file-specific loggers for logging. For more information about QMI tasks see the [tutorial](https://qmi.readthedocs.io/en/latest/tutorial.html#making-a-qmi-task), and about logging the [Design Overview](https://qmi.readthedocs.io/en/latest/design.html#logging) in documentation. There are also other examples of tasks in the [`examples` folder of the QMI repository](https://github.com/QuTech-Delft/QMI/tree/main/examples).
+
+::: instructor
+Note that we used a `with` context manager for the starting and stopping of QMI, and for `make_instrument`. These context managers takes care of the `start()` and `stop()` calls for QMI and `open()` and `close()` calls of the instrument, so they do not need to be separately called anymore.
+
+TIP: You can use the `with` context manager also for QMI tasks. You can replace in `task_demo.py` the task part with:
+
+``` python
+            with qmi.make_task("demo_task", DemoRpcControlTask, task_runner=CustomRpcControlTaskRunner) as task:
+                _logger.info("the task has been started")
+                while task.is_running() and not ctx.shutdown_requested():
+                    sample = nsg.get_sample()
+                    amplitude = nsg.get_amplitude()
+                    print(" " * int(40.0 + 0.25 * sample) + "*")
+                    if abs(sample) > 10:
+                        task.set_amplitude(amplitude * 0.99)
+                    else:
+                        task.set_amplitude(amplitude * 1.01)
+
+                    time.sleep(0.01)
+
+            _logger.info("the task has been stopped")
+```
+
+Now, the `with` context manager will take care of starting, stopping and joining the task thread.
+:::
 
 Further, the amplitude control through the task settings actually utilizes the QMI’s signalling feature. For more details on this, you can read into [signalling](https://qmi.readthedocs.io/en/latest/design.html#signalling) and look at API of [qmi.core.task](https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#module-qmi.core.task) in the documentation.
 
 ::: keypoints
 -   Also QMI tasks need to be defined in `qmi.conf`. To enable running the task a a service, parameters "enabled" and "program_module" need to be defined.
 -   A task consists of a `QMI_Task` class and a `QMI_TaskRunner` class. The latter can be customized to include RPC methods in tasks.
+-   Task is started with `start()`, stopped with `stop()` and after stopping, the task thread should be "joined" with `join()` for properly exiting the thread.
 -   `qmi_proc` is an executable created while installing QMI. It can be used to start, stop and checking status of (local) QMI tasks running as background processes.
 :::
