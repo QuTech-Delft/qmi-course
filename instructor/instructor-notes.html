@@ -448,7 +448,41 @@ and callable methods present.</p>
 <br></section><section id="qmi_configuration"><h2 class="section-heading"><a href="qmi_configuration.html">Configuring and logging</a></h2>
 <hr class="half-width"></section><section id="accessing_a_remote_instrument"><h2 class="section-heading"><a href="accessing_a_remote_instrument.html">Accessing an instrument remotely</a></h2>
 <hr class="half-width"></section><section id="tasks_and_service"><h2 class="section-heading"><a href="tasks_and_service.html">Create a task and a 'service'</a></h2>
-<hr class="half-width"></section><section id="open-source_vs_internal"><h2 class="section-heading"><a href="open-source_vs_internal.html">Open-source vs internal code</a></h2>
+<hr class="half-width">
+<h3 id="tasks_and_service-headingInstructor1">
+<a href="tasks_and_service.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#tasks_and_service-headingInstructor1"></a>
+</h3>
+<p>Note that we used a <code>with</code> context manager for the
+starting and stopping of QMI, and for <code>make_instrument</code>.
+These context managers takes care of the <code>start()</code> and
+<code>stop()</code> calls for QMI and <code>open()</code> and
+<code>close()</code> calls of the instrument, so they do not need to be
+separately called anymore.</p>
+<p>TIP: You can use the <code>with</code> context manager also for QMI
+tasks. You can replace in <code>task_demo.py</code> the task part
+with:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>            <span class="cf">with</span> qmi.make_task(<span class="st">"demo_task"</span>, DemoRpcControlTask, task_runner<span class="op">=</span>CustomRpcControlTaskRunner) <span class="im">as</span> task:</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>                _logger.info(<span class="st">"the task has been started"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>                <span class="cf">while</span> task.is_running() <span class="kw">and</span> <span class="kw">not</span> ctx.shutdown_requested():</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>                    sample <span class="op">=</span> nsg.get_sample()</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>                    amplitude <span class="op">=</span> nsg.get_amplitude()</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> sample) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>                    <span class="cf">if</span> <span class="bu">abs</span>(sample) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">0.99</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">1.01</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>                    time.sleep(<span class="fl">0.01</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>            _logger.info(<span class="st">"the task has been stopped"</span>)</span></code></pre>
+</div>
+<p>Now, the <code>with</code> context manager will take care of
+starting, stopping and joining the task thread.</p>
+<hr>
+<br></section><section id="open-source_vs_internal"><h2 class="section-heading"><a href="open-source_vs_internal.html">Open-source vs internal code</a></h2>
 <hr class="half-width"></section><section id="releasing_code"><h2 class="section-heading"><a href="releasing_code.html">Releasing and versioning of QMI code</a></h2>
 <hr class="half-width"></section></section>
 </div>
@@ -500,8 +534,8 @@ and callable methods present.</p>
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/instructor-notes.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/instructor-notes.html",
   "dateCreated": "2026-01-21",
-  "dateModified": "2026-02-24",
-  "datePublished": "2026-02-24"
+  "dateModified": "2026-02-26",
+  "datePublished": "2026-02-26"
 }
 
   </script><script>

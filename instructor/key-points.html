@@ -468,6 +468,9 @@ enable running the task a a service, parameters “enabled” and
 <li>A task consists of a <code>QMI_Task</code> class and a
 <code>QMI_TaskRunner</code> class. The latter can be customized to
 include RPC methods in tasks.</li>
+<li>Task is started with <code>start()</code>, stopped with
+<code>stop()</code> and after stopping, the task thread should be
+“joined” with <code>join()</code> for properly exiting the thread.</li>
 <li>
 <code>qmi_proc</code> is an executable created while installing QMI.
 It can be used to start, stop and checking status of (local) QMI tasks
@@ -543,8 +546,8 @@ and used for the installation.</li>
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/key-points.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/key-points.html",
   "dateCreated": "2026-01-21",
-  "dateModified": "2026-02-24",
-  "datePublished": "2026-02-24"
+  "dateModified": "2026-02-26",
+  "datePublished": "2026-02-26"
 }
 
   </script><script>

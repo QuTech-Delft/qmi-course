@@ -1120,7 +1120,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-tasks_and_service"><p>Content from <a href="tasks_and_service.html">Create a task and a 'service'</a></p>
 <hr>
-<p>Last updated on 2026-02-16 |
+<p>Last updated on 2026-02-26 |
 
         <a href="https://github.com/QuTech-Delft/qmi-course/edit/main/episodes/tasks_and_service.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1245,24 +1245,32 @@ task.</p>
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="cf">with</span> start_stop(qmi, <span class="st">"proc_demo"</span>, config_file<span class="op">=</span><span class="st">"./qmi.conf"</span>):</span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>        ctx <span class="op">=</span> qmi.context()</span>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>        <span class="cf">with</span> qmi.make_instrument(<span class="st">"nsg"</span>, NoisySineGenerator) <span class="im">as</span> nsg:</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>            <span class="cf">with</span> qmi.make_task(<span class="st">"demo_task"</span>, DemoRpcControlTask, task_runner<span class="op">=</span>CustomRpcControlTaskRunner) <span class="im">as</span> task:</span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>                _logger.info(<span class="st">"the task has been started"</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>                <span class="cf">while</span> task.is_running() <span class="kw">and</span> <span class="kw">not</span> ctx.shutdown_requested():</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>                    sample <span class="op">=</span> nsg.get_sample()</span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>                    amplitude <span class="op">=</span> nsg.get_amplitude()</span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> sample) <span class="op">+</span> <span class="st">"*"</span>)</span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>                    <span class="cf">if</span> <span class="bu">abs</span>(sample) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">0.99</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">1.01</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>                    time.sleep(<span class="fl">0.01</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>            task <span class="op">=</span> qmi.make_task(<span class="st">"demo_task"</span>, DemoRpcControlTask, task_runner<span class="op">=</span>CustomRpcControlTaskRunner)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>            task.start()</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>            _logger.info(<span class="st">"the task has been started"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>            <span class="cf">try</span>:</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>                <span class="cf">while</span> task.is_running() <span class="kw">and</span> <span class="kw">not</span> ctx.shutdown_requested():</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>                    sample <span class="op">=</span> nsg.get_sample()</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>                    amplitude <span class="op">=</span> nsg.get_amplitude()</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="bu">int</span>(<span class="fl">40.0</span> <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> sample) <span class="op">+</span> <span class="st">"*"</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>                    <span class="cf">if</span> <span class="bu">abs</span>(sample) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">0.99</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>                        task.set_amplitude(amplitude <span class="op">*</span> <span class="fl">1.01</span>)</span>
 <span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>            _logger.info(<span class="st">"the task has been stopped"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>                    time.sleep(<span class="fl">0.01</span>)</span>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>    main()</span></code></pre>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>                task.stop()</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>            <span class="cf">except</span>:</span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>                task.stop()</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>            <span class="cf">finally</span>:</span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>                _logger.info(<span class="st">"the task has been stopped"</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>                task.join()</span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>    main()</span></code></pre>
 </div>
 <p>This program now takes care of creating the instrument
 <code>nsg</code> and followingly starting up the task, using the
@@ -1303,7 +1311,7 @@ configuration will now have a new entry for the background process
         }
     },
     "process_management": {
-        "output_dir": "~/tmp/log"
+        "output_dir": "~/qmi_course/log"
     }
 }</code></pre>
 <p>The ‘”enabled”: true’ parameter makes it possible to start the
@@ -1359,7 +1367,9 @@ into the runner. We also make use of file-specific loggers for logging.
 For more information about QMI tasks see the <a href="https://qmi.readthedocs.io/en/latest/tutorial.html#making-a-qmi-task" class="external-link">tutorial</a>,
 and about logging the <a href="https://qmi.readthedocs.io/en/latest/design.html#logging" class="external-link">Design
 Overview</a> in documentation. There are also other examples of tasks in
-the <code>examples</code> folder of the QMI repository.</p>
+the <a href="https://github.com/QuTech-Delft/QMI/tree/main/examples" class="external-link"><code>examples</code>
+folder of the QMI repository</a>.</p>
+
 <p>Further, the amplitude control through the task settings actually
 utilizes the QMI’s signalling feature. For more details on this, you can
 read into <a href="https://qmi.readthedocs.io/en/latest/design.html#signalling" class="external-link">signalling</a>
@@ -1379,6 +1389,9 @@ enable running the task a a service, parameters “enabled” and
 <li>A task consists of a <code>QMI_Task</code> class and a
 <code>QMI_TaskRunner</code> class. The latter can be customized to
 include RPC methods in tasks.</li>
+<li>Task is started with <code>start()</code>, stopped with
+<code>stop()</code> and after stopping, the task thread should be
+“joined” with <code>join()</code> for properly exiting the thread.</li>
 <li>
 <code>qmi_proc</code> is an executable created while installing QMI.
 It can be used to start, stop and checking status of (local) QMI tasks
@@ -1707,8 +1720,8 @@ any links that you are not going to use.
   "url": "https://QuTech-Delft.github.io/qmi-course/aio.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/aio.html",
   "dateCreated": "2026-01-21",
-  "dateModified": "2026-02-24",
-  "datePublished": "2026-02-24"
+  "dateModified": "2026-02-26",
+  "datePublished": "2026-02-26"
 }
 
   </script><script>

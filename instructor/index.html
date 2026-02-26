@@ -501,7 +501,13 @@ Prompt/Powershell might be OK as well.</p>
 cd qmi_course</code></pre>
 <ul><li>Make a virtual environment for running exercises</li>
 </ul><pre class="shell"><code>python -m venv venv
-source venv/bin/activate</code></pre>
+# Linux / MacOS Terminal
+source venv/bin/activate
+# Git bash on Windows
+source venv/Scripts/activate
+# Powershell, with possibly requred step to enable running scripts
+set-executionpolicy RemoteSigned -Scope CurrentUser
+.\venv\Scripts\Activate.ps1</code></pre>
 <ul><li>Install open-source QMI with Pip</li>
 </ul><pre class="shell"><code>pip install qmi</code></pre>
 <ul><li>Handy to have: IDE software, like <a href="https://www.jetbrains.com/pycharm/" class="external-link">PyCharm</a>.</li>
@@ -559,8 +565,8 @@ any links that you are not going to use.
   "url": "https://QuTech-Delft.github.io/qmi-course/instructor/index.html",
   "identifier": "https://QuTech-Delft.github.io/qmi-course/instructor/index.html",
   "dateCreated": "2026-01-21",
-  "dateModified": "2026-02-24",
-  "datePublished": "2026-02-24"
+  "dateModified": "2026-02-26",
+  "datePublished": "2026-02-26"
 }
 
   </script><script>
