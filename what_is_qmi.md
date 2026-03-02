@@ -17,9 +17,9 @@ exercises: 0
 
 **QMI**, **Q**uantum **M**easurement **I**nfrastructure, is a Python 3 framework for controlling laboratory equipment. It is suitable for anything ranging from one-off scientific experiments to robust operational setups.
 
-QMI is developed by [QuTech](https://www.qutech.nl/) to support advanced physics experiments involving quantum bits. However, other than its name and original purpose, the_re is nothing specifically *quantum* about QMI — it is potentially useful in any environment where monitoring and control of measurement equipment is needed. It is also multi-platform. At QuTech, QMI is regularly used in both Linux and Windows, and running QMI on macOS is also possible.
+QMI is developed by [QuTech](https://www.qutech.nl/) to support advanced physics experiments involving quantum bits. However, other than its name and original purpose, there is nothing specifically *quantum* about QMI — it is potentially useful in any environment where monitoring and control of measurement equipment is needed. It is also multi-platform. At QuTech, QMI is regularly used in both Linux and Windows, and running QMI on macOS is also possible.
 
-It supports *instruments* and *devices* that encapsulate equipment under computer control. A number of instruments are provided out of the box, and it is relatively easy to add your own. QMI makes use of *tasks* that can encapsulate a (background) process that needs to run temporarily or indefinitely. It offers *network transparency*; instruments and tasks can be remotely started, stopped, monitored and controlled. With these features it can be used as basis for monitoring and control of complicated setups, distributed over multiple locations.
+It supports encapsulating *instruments* and *devices* under computer control. A number of instrument and device drivers are provided out of the box, and it is relatively easy to add your own. QMI makes use of *tasks* that can encapsulate a (background) process that needs to run temporarily or indefinitely. It offers *network transparency*; instruments and tasks can be remotely started, stopped, monitored and controlled. With these features it can be used as basis for monitoring and control of complicated setups, distributed over multiple locations.
 
 # Main Features
 

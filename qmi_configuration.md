@@ -21,7 +21,7 @@ editor_options:
 Many aspects of QMI are configurable via a *configuration file*. The syntax of this file is very similar to
 [JSON](https://www.json.org/), but unlike JSON, the configuration file may contain comments starting with a \#
 character. By default, QMI attempts to read the configuration from a file named `qmi.conf` in the home directory (i.e.
-‘/home/<user_profile>’ in Linux or ‘C:\\Users\\\<user_name\>’ folder on Windows). If you want to use a different file
+‘/home/\<user_profile\>’ in Linux or ‘C:\\Users\\\<user_name\>’ folder on Windows). If you want to use a different file
 name or location, you can specify the configuration file path with the `config_file=` argument of `qmi.start()` or in the
 environment variable `QMI_CONFIG`. Let’s create a configuration file `qmi.conf` at the course directory with the
 following contents:
