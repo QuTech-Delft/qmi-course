@@ -14,7 +14,9 @@ title: Setup
 ::: spoiler
 ### Windows
 
-[Git for Windows](https://gitforwindows.org/). Command Prompt/Powershell might be OK as well.
+Install [Git for Windows](https://gitforwindows.org/) and use the installed "Git Bash" terminal program. Command Prompt/Powershell might be OK as well.
+
+Note that since recently, Windows installation of Python might not automatically create alias "python[.exe]" for executing Python. Windows should in any case install Python launcher executable called "py" in any case. If you cannot run commands with "python", use "py" instead, or resolve the issue following [these tips](https://docs.python.org/3/using/windows.html#pymanager-troubleshoot).
 :::
 
 ::: spoiler
