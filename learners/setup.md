@@ -32,7 +32,7 @@ Use Terminal
 :::
 ::::::
 
--   Make a folder for the exercises. For the examples in this course this is expected to be at the user's home directory ("/home/<username>/" or "C:\\Users\\<username>\\")
+-   Make a folder for the exercises. For the examples in this course this is expected to be at the user's home directory ("/home/\<username\>/" or "C:\\Users\\\<username\>\\")
 
 ``` shell
 mkdir qmi_course
