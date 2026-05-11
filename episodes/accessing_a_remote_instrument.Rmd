@@ -2,7 +2,7 @@
 title: "Accessing an instrument remotely"
 output: html_document
 teaching: 5
-exercises: 10
+exercises: 15
 ---
 
 ::: questions

@@ -1,8 +1,8 @@
 ---
 title: "'Hello World'"
 output: html_document
-teaching: 4
-exercises: 6
+teaching: 5
+exercises: 10
 ---
 
 ::: questions
