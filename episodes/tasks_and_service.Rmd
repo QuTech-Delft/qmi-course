@@ -154,7 +154,7 @@ The ‘”enabled”: true’ parameter makes it possible to start the context v
 
 ### Running the task as a service with `qmi_proc`
 
-We can now start the service using `qmi_proc` program. `qmi_proc` is a command-line executable created when installing QMI, see also documentation about [managing background processes](https://qmi.readthedocs.io/en/latest/tutorial.html%23managing-background-processes). It can be used to start, stop and inquire status of services. To start the “proc_demo” service, type the following (the “--config ./qmi.conf” is not necessary if the `qmi.conf` is in the default path).
+We can now start the service using `qmi_proc` program. `qmi_proc` is a command-line executable created when installing QMI, see also documentation about [managing background processes](https://qmi.readthedocs.io/en/stable/tutorial.html#managing-background-processes). It can be used to start, stop and inquire status of services. To start the “proc_demo” service, type the following (the “--config ./qmi.conf” is not necessary if the `qmi.conf` is in the default path).
 
 ``` shell
 qmi_proc start proc_demo --config ./qmi.conf
