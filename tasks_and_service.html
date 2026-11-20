@@ -506,24 +506,23 @@ task.</p>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1" aria-label="code-block-2-30"></a>                    settings <span class="op">=</span> task.get_settings()</span>
 <span id="cb2-31"><a href="#cb2-31" tabindex="-1" aria-label="code-block-2-31"></a>                    <span class="cf">if</span> <span class="bu">abs</span>(sample) <span class="op">&gt;</span> <span class="dv">10</span>:</span>
 <span id="cb2-32"><a href="#cb2-32" tabindex="-1" aria-label="code-block-2-32"></a>                        settings.amplitude <span class="op">=</span> amplitude <span class="op">*</span> <span class="fl">0.99</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1" aria-label="code-block-2-33"></a>                        task.set_settings(settings)</span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1" aria-label="code-block-2-34"></a>                    <span class="cf">else</span>:</span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1" aria-label="code-block-2-35"></a>                        settings.amplitude <span class="op">=</span> amplitude <span class="op">*</span> <span class="fl">1.01</span></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1" aria-label="code-block-2-36"></a>                        task.set_settings(settings)</span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1" aria-label="code-block-2-37"></a></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1" aria-label="code-block-2-38"></a>                    time.sleep(<span class="fl">0.01</span>)</span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1" aria-label="code-block-2-39"></a></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1" aria-label="code-block-2-40"></a>                task.stop()</span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1" aria-label="code-block-2-41"></a></span>
-<span id="cb2-42"><a href="#cb2-42" tabindex="-1" aria-label="code-block-2-42"></a>            <span class="cf">except</span>:</span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1" aria-label="code-block-2-43"></a>                task.stop()</span>
-<span id="cb2-44"><a href="#cb2-44" tabindex="-1" aria-label="code-block-2-44"></a>            <span class="cf">finally</span>:</span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1" aria-label="code-block-2-45"></a>                _logger.info(<span class="st">"the task has been stopped"</span>)</span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1" aria-label="code-block-2-46"></a>                task.join()</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1" aria-label="code-block-2-33"></a>                    <span class="cf">else</span>:</span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1" aria-label="code-block-2-34"></a>                        settings.amplitude <span class="op">=</span> amplitude <span class="op">*</span> <span class="fl">1.01</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1" aria-label="code-block-2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1" aria-label="code-block-2-36"></a>                    task.set_settings(settings)</span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1" aria-label="code-block-2-37"></a>                    time.sleep(<span class="fl">0.01</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1" aria-label="code-block-2-38"></a></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1" aria-label="code-block-2-39"></a>                task.stop()</span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1" aria-label="code-block-2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1" aria-label="code-block-2-41"></a>            <span class="cf">except</span>:</span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1" aria-label="code-block-2-42"></a>                task.stop()</span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1" aria-label="code-block-2-43"></a>            <span class="cf">finally</span>:</span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1" aria-label="code-block-2-44"></a>                _logger.info(<span class="st">"the task has been stopped"</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1" aria-label="code-block-2-45"></a>                task.join()</span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1" aria-label="code-block-2-46"></a></span>
 <span id="cb2-47"><a href="#cb2-47" tabindex="-1" aria-label="code-block-2-47"></a></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1" aria-label="code-block-2-48"></a></span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1" aria-label="code-block-2-49"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1" aria-label="code-block-2-50"></a>    main()</span></code></pre>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1" aria-label="code-block-2-48"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1" aria-label="code-block-2-49"></a>    main()</span></code></pre>
 </div>
 <p>This program now takes care of creating the instrument
 <code>nsg</code> and followingly starting up the task, using the
