@@ -11,7 +11,7 @@ message: >-
   when you refer to it in publications, and/or if you
   re-use, adapt, or expand on the content in your own
   training material.
-type: course workshop
+authors:
   - given-names: Henri
     family-names: Ervasti
     email: H.K.Ervasti@tudelft.nl
