@@ -111,11 +111,10 @@ def main():
                     settings = task.get_settings()
                     if abs(sample) > 10:
                         settings.amplitude = amplitude * 0.99
-                        task.set_settings(settings)
                     else:
                         settings.amplitude = amplitude * 1.01
-                        task.set_settings(settings)
 
+                    task.set_settings(settings)
                     time.sleep(0.01)
 
                 task.stop()
