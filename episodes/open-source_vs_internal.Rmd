@@ -18,10 +18,12 @@ exercises: 0
 
 ## QMI open-source vs internal code
 
-QMI has its main development as an open-source software (OSS). But it has also a close-source version (CSS) for development mainly due to licensing reasons as QMI uses also some manufacturer software and libraries. Also for some projects it might be preferable to keep certain aspects out of plain sight during their course. The software can be found in
+QMI has its main development as an open-source software (OSS). The OSS QMI is published under the MIT license terms. The MIT license is not compatible with GPL and partially not compatible with L-GPL licenses, and by custom license terms the situation needs to be checked by case. Therefore, we cannot have open-source drivers for instruments if they have software components the driver would be dependent on (like Python modules, compiled libraries, and similar) with incompatible license terms.
+We have also a close-source version (CSS) for development, within these licensing terms, for QuTech's internal use only. The software can be found in
 -	OSS: https://github.com/QuTech-Delft/QMI (public)
 -	CSS: https://gitlab.tudelft.nl/qmi/qmi (private, you need to be invited to access)
 repositories.
+
 
 ## Code base and development
 
