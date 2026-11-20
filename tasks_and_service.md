@@ -6,13 +6,13 @@ exercises: 20
 ---
 
 ::: questions
--   What are tasks and what can they do?
--   Can I run a task as a (background) 'service' process?
+- What are tasks and what can they do?
+- Can I run a task as a (background) 'service' process?
 :::
 
 ::: objectives
--   Learn how to create tasks with (customized) task runners
--   Learn how to make a background 'service' process with `qmi_proc`
+- Learn how to create tasks with (customized) task runners
+- Learn how to make a background 'service' process with `qmi_proc`
 :::
 
 ## Example: QMI service process to control amplitude of sine wave
@@ -37,13 +37,18 @@ _logger = logging.getLogger(__name__)
 
 @dataclass
 class DemoLoopTaskSettings:
-    sample: float | None
+    """In this class we can define values we can set for the task"""
     amplitude: float
+    sample: float | None
 
 
 class CustomRpcControlTaskRunner(QMI_TaskRunner):
     @rpc_method
     def set_amplitude(self, amplitude: float):
+        """This custom method for the task makes it possible to modify externally
+        the task settings, and namely the amplitude value of the settings.
+        """
+        # We get a settings object and modify the amplitude value with the input value
         settings = self.get_settings()
         settings.amplitude = amplitude
         self.set_settings(settings)
@@ -58,11 +63,13 @@ class DemoRpcControlTask(QMI_Task):
         _logger.info("starting the background task")
         nsg = qmi.get_instrument("proc_demo.nsg")
         while not self.stop_requested():
+            # We internally update the `self.settings` and use the latest value to control the dummy amplitude
             self.update_settings()
             nsg.set_amplitude(self.settings.amplitude)
             self.sleep(0.01)
 
         _logger.info("stopping the background task")
+
 ```
 
 Note that we define class `DemoRpcControlTask` with one special method named `run()`. This method contains the code that makes up the background task. In this simple example, the task simply loops about 100 times per second, reading settings from the sine generator and adjusting its amplitude. The task uses the function [`qmi.core.task.QMI_Task.sleep()`](https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#qmi.core.task.QMI_Task.sleep) to sleep instead of `time.sleep()`. The advantage of this is that it stops waiting immediately when it is necessary to stop the task.
@@ -95,10 +102,19 @@ def main():
                     sample = nsg.get_sample()
                     amplitude = nsg.get_amplitude()
                     print(" " * int(40.0 + 0.25 * sample) + "*")
+                    # We check first if task is still busy with previous settings
+                    if task.get_pending_settings() is not None:
+                        time.sleep(0.01)
+                        continue
+
+                    # Otherwise, we can control the new amplitude
+                    settings = task.get_settings()
                     if abs(sample) > 10:
-                        task.set_amplitude(amplitude * 0.99)
+                        settings.amplitude = amplitude * 0.99
+                        task.set_settings(settings)
                     else:
-                        task.set_amplitude(amplitude * 1.01)
+                        settings.amplitude = amplitude * 1.01
+                        task.set_settings(settings)
 
                     time.sleep(0.01)
 
@@ -204,8 +220,8 @@ Now, the `with` context manager will take care of starting, stopping and joining
 Further, the amplitude control through the task settings actually utilizes the QMI’s signalling feature. For more details on this, you can read into [signalling](https://qmi.readthedocs.io/en/latest/design.html#signalling) and look at API of [qmi.core.task](https://qmi.readthedocs.io/en/latest/build/qmi.core.task.html#module-qmi.core.task) in the documentation.
 
 ::: keypoints
--   Also QMI tasks need to be defined in `qmi.conf`. To enable running the task a a service, parameters "enabled" and "program_module" need to be defined.
--   A task consists of a `QMI_Task` class and a `QMI_TaskRunner` class. The latter can be customized to include RPC methods in tasks.
--   Task is started with `start()`, stopped with `stop()` and after stopping, the task thread should be "joined" with `join()` for properly exiting the thread.
--   `qmi_proc` is an executable created while installing QMI. It can be used to start, stop and checking status of (local) QMI tasks running as background processes.
+- Also QMI tasks need to be defined in `qmi.conf`. To enable running the task a a service, parameters "enabled" and "program_module" need to be defined.
+- A task consists of a `QMI_Task` class and a `QMI_TaskRunner` class. The latter can be customized to include RPC methods in tasks.
+- Task is started with `start()`, stopped with `stop()` and after stopping, the task thread should be "joined" with `join()` for properly exiting the thread.
+- `qmi_proc` is an executable created while installing QMI. It can be used to start, stop and checking status of (local) QMI tasks running as background processes.
 :::
